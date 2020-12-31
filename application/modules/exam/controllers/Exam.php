@@ -120,6 +120,70 @@ $data['cases'] = $this->Exam_model->getExam();
         echo json_encode($output);
     }
 	
+	
+	function getQuestionList() {
+        $requestData = $_REQUEST;
+        $start = $requestData['start'];
+        $limit = $requestData['length'];
+        $search = $this->input->post('search')['value'];
+$data['cases'] = $this->Exam_model->getQuestion();
+        /*if ($limit == -1) {
+            if (!empty($search)) {
+                $data['cases'] = $this->Exam_model->getExamBySearch($search);
+            } else {
+                $data['cases'] = $this->Exam_model->getExam();
+            }
+        } else {
+            if (!empty($search)) {
+                $data['cases'] = $this->Exam_model->getExamByLimitBySearch($limit, $start, $search);
+            } else {
+                $data['cases'] = $this->Exam_model->getExamByLimit($limit, $start);
+            }
+        }*/
+        //  $data['patients'] = $this->patient_model->getPatient();
+        $i = 0;
+        foreach ($data['cases'] as $case) {
+            $i = $i + 1;
+
+            $option1 = '<a class="btn btn-info btn-xs btn_width" href="exam/viewQuestionsById?id=' . $case->exam_id . '"><i class="fa fa-eye"> </i>' . 'View Questions' . '</a>';
+            $option2 = '<button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="' . $case->exam_id . '"><i class="fa fa-edit"></i>' . lang('edit') . '</button>';
+            $option3 = '<a class="btn btn-info btn-xs btn_width delete_button" href="exam/delete?id=' . $case->exam_id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i>' . lang('delete') . '</a>';
+            $imgoption = '<img style="width:95%;"src="' . $case->img_url . '">';
+
+            $info[] = array(
+                $case->id,
+                $case->exam_id,
+                $case->question,
+                $case->option1,
+                $case->option2,
+                $case->option3,
+                $case->option4,
+                $case->answer,
+                $option1 . ' ' . $option2 . ' ' . $option3
+            );
+        }
+
+        if (!empty($data['cases'])) {
+            $output = array(
+                "draw" => intval($requestData['draw']),
+                "recordsTotal" => $this->db->get('exam')->num_rows(),
+                "recordsFiltered" => $this->db->get('exam')->num_rows(),
+                "data" => $info
+            );
+        } else {
+            $output = array(
+                // "draw" => 1,
+                "recordsTotal" => 0,
+                "recordsFiltered" => 0,
+                "data" => []
+            );
+        }
+
+        echo json_encode($output);
+    }
+	
+	
+	
 	function delete() {
         $data = array();
         $id = $this->input->get('id');
@@ -132,7 +196,7 @@ $data['cases'] = $this->Exam_model->getExam();
 	function viewQuestionsById() {
         $data = array();
         $id = $this->input->get('id');
-        $qa = $this->db->get_where('exam_questions', array('exam_id' => $id))->row();
+        $qa = $this->db->get_where('qa', array('exam_id' => $id))->row();
         //$this->Exam_model->;
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file

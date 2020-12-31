@@ -18,6 +18,11 @@ class Exam_model extends CI_model {
         $query = $this->db->get('exam');
         return $query->result();
     }
+	
+	function getQuestion() {
+        $query = $this->db->get('qa');
+        return $query->result();
+    }
 
 
     function getExamById($id) {

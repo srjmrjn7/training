@@ -10,7 +10,7 @@
                     <a data-toggle="modal" href="#myModal">
                         <div class="btn-group pull-right"> 
                             <button class="btn-xs green">
-                                <i class="fa fa-plus-circle"></i>  <?php echo "Add New Exam"; ?>
+                                <i class="fa fa-plus-circle"></i>  <?php echo "Add New Question"; ?>
                             </button>
                         </div>
                     </a>  
@@ -51,13 +51,15 @@
                     <table class="table table-striped table-hover table-bordered" id="editable-sample1">
                         <thead>
                             <tr>
+                                <th> <?php echo 'ID'; ?></th>
                                 <th> <?php echo 'Exam ID'; ?></th>
-                                <th> <?php echo 'Course ID'; ?></th>
-                                <th> <?php echo 'Topic'; ?></th>
-                                <th> <?php echo 'Grand Total'; ?></th>
-                                <th> <?php echo 'Pass Marks'; ?></th>
-                                <th> <?php echo 'Comment'; ?></th>
-                                <th> <?php echo 'Options'; ?></th>
+                                <th> <?php echo 'Question'; ?></th>
+                                <th> <?php echo 'Option 1'; ?></th>
+                                <th> <?php echo 'Option 2'; ?></th>
+                                <th> <?php echo 'Option 3'; ?></th>
+                                <th> <?php echo 'Option 4'; ?></th>
+                                <th> <?php echo 'Answer'; ?></th>
+                                <th> <?php echo 'Action'; ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -140,7 +142,7 @@
             "serverSide": true,
             "searchable": true,
             "ajax": {
-                url: "exam/getExamList",
+                url: "exam/getQuestionList",
                 type: 'POST',
             },
             scroller: {

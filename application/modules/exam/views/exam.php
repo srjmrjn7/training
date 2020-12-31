@@ -116,6 +116,10 @@
                         <label for="exampleInputEmail1"> <?php echo 'Comment'; ?></label>
                         <input type="text" class="form-control" name="comment" id="exampleInputEmail1" value='' placeholder="">
                     </div>
+					<div class="form-group">
+                        <label for="exampleInputEmail1"> <?php echo 'Action'; ?></label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
                     <div class="form-group col-md-12">
                         <button type="submit" name="submit" class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
                     </div>
