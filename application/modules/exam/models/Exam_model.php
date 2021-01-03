@@ -14,12 +14,23 @@ class Exam_model extends CI_model {
         $this->db->insert('exam', $data);
     }
 
+    function insertqa($data) {
+        $this->db->insert('qa', $data);
+    }
+
     function getExam() {
         $query = $this->db->get('exam');
         return $query->result();
     }
 	
-	function getQuestion() {
+	function getQuestionById() {
+        $id = $this->input->get('id');
+        $this->db->where('exam_id', $id);
+        $query = $this->db->get('qa');
+        return $query->result();
+    }
+
+    function getQuestion() {
         $query = $this->db->get('qa');
         return $query->result();
     }
@@ -43,9 +54,20 @@ class Exam_model extends CI_model {
         $this->db->update('exam', $data);
     }
 
+    function updateqa($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update('qa', $data);
+    }
+
     function delete($id) {
         $this->db->where('exam_id', $id);
         $this->db->delete('exam');
+    }
+
+
+    function deleteqa($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('qa');
     }
 
 

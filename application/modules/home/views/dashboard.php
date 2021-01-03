@@ -308,6 +308,19 @@
                             </li>
                         <?php } ?>
 
+                        <?php if ($this->ion_auth->in_group(array('admin'))) { ?>
+                            <li class="sub-menu">
+                                <a href="javascript:;" >
+                                    <i class="fa fa-newspaper"></i>
+                                    <span><?php echo Exam; ?></span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a  href="exam"><i class="fa fa-list"></i><?php echo Exam; ?></a></li>
+                                    <li><a  href="exam/viewQuestions"><i class="fa fa-list"></i><?php echo Questions; ?></a></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+
                         <?php if ($this->ion_auth->in_group(array('admin', 'Instructor'))) { ?>
                             <li class="sub-menu">
                                 <a href="javascript:;" >

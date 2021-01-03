@@ -156,7 +156,7 @@
             "serverSide": true,
             "searchable": true,
             "ajax": {
-                url: "exam/getQuestionList",
+                url: "exam/getQuestionById",
                 type: 'GET',
             },
             scroller: {
