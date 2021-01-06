@@ -25,8 +25,8 @@ class Routine_model extends CI_model {
         return $query->row();
     }
 
-    function getRoutineByBatchId($batch) {
-        $this->db->where('batch_id', $batch);
+    function getRoutineByBatchId($id) {
+        $this->db->where('id', $id);
         $query = $this->db->get('routine');
         return $query->row();
     }

@@ -68,18 +68,18 @@ class Routine extends MX_Controller {
 
     public function viewRoutine() {
         $data['course'] = $this->input->post('course');
-        $data['batch'] = (int) $this->input->post('batch');
-        if (empty($data['batch'])) {
-            $data['batch'] = (int) $this->input->get('batch');
-            $data['course'] = $this->batch_model->getCourseByBatchId($data['batch'])->course;
+        $data['id'] = (int) $this->input->post('id');
+        if (empty($data['id'])) {
+            $data['id'] = (int) $this->input->get('id');
+            $data['course'] = $this->batch_model->getCourseByBatchId($data['id'])->course;
         }
 
-        $routine_details = $this->routine_model->getRoutineByBatchId($data['batch']);
+        $routine_details = $this->routine_model->getRoutineByBatchId($data['id']);
         $data['routine'] = $routine_details;
         if (!empty($routine_details)) {
             $data['routine_id'] = $routine_details->id;
         }
-        $data['batch_details'] = $this->batch_model->getBatchById($data['batch']);
+        $data['batch_details'] = $this->batch_model->getBatchById($data['id']);
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
         $this->load->view('routine_by_batch_id', $data);
@@ -87,7 +87,8 @@ class Routine extends MX_Controller {
     }
 
     public function addNewView() {
-        $data['courses'] = $this->course_model->getCourse();
+        $data['courses'] = $this->course_model->getdistinctCourse();
+        $data['topic'] = $this->course_model->getCourse();
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
         $this->load->view('add_new');
@@ -99,12 +100,11 @@ class Routine extends MX_Controller {
         $id = $this->input->post('id');
         if (!empty($id)) {
             $routine_details = $this->routine_model->getRoutineById($id);
-            $course_id = $routine_details->course;
-            $batch_id = $routine_details->batch_id;
+            $course = $routine_details->course;
+            $chapter = $routine_details->chapter;
         } else {
-            $course_id = $this->input->post('course');
-            $batch_id = $this->input->post('batch_id');
-            $routine_details = $this->routine_model->getRoutineByBatchId($batch_id);
+            $course = $this->input->post('course');
+            $chapter = $this->input->post('chapter');
             if (!empty($routine_details)) {
                 $this->session->set_flashdata('feedback', 'Already Exist For This Batch');
                 redirect('routine/addNewView');
@@ -112,16 +112,9 @@ class Routine extends MX_Controller {
         }
 
 
-
-
-        if (empty($id)) {
-            $check = $this->routine_model->getRoutineByBatchId($batch_id);
-            if (!empty($check)) {
-                $routine_id = $check->id;
-                $this->session->set_flashdata('feedback', 'Already Exist For This Batch');
-                redirect('routine/editRoutine?id=' . $routine_id);
-            }
-        }
+        $sunday = $this->input->post('sunday');
+        $start_time_sunday = $this->input->post('start_time_sunday');
+        $end_time_sunday = $this->input->post('end_time_sunday');
 
         $monday = $this->input->post('monday');
         $start_time_monday = $this->input->post('start_time_monday');
@@ -152,12 +145,13 @@ class Routine extends MX_Controller {
         $start_time_saturday = $this->input->post('start_time_saturday');
         $end_time_saturday = $this->input->post('end_time_saturday');
 
-        $sunday = $this->input->post('sunday');
-        $start_time_sunday = $this->input->post('start_time_sunday');
-        $end_time_sunday = $this->input->post('end_time_sunday');
 
 
         $routine = array();
+
+        if (!empty($sunday)) {
+            $routine[] = $sunday . ',' . $start_time_sunday . ',' . $end_time_sunday;
+        }
 
         if (!empty($monday)) {
             $routine[] = $monday . ',' . $start_time_monday . ',' . $end_time_monday;
@@ -183,15 +177,9 @@ class Routine extends MX_Controller {
             $routine[] = $saturday . ',' . $start_time_saturday . ',' . $end_time_saturday;
         }
 
-        if (!empty($sunday)) {
-            $routine[] = $sunday . ',' . $start_time_sunday . ',' . $end_time_sunday;
-        }
-
 
 
         $routines = implode('*', $routine);
-
-
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -214,14 +202,12 @@ class Routine extends MX_Controller {
         } else {
 
             //$error = array('error' => $this->upload->display_errors());
-            $batchdetails = $this->batch_model->getBatchById($batch_id);
             $data = array();
             $data = array(
                 //  'course' => $course_id,
-                'batch_id' => $batch_id,
+                'chapter' => $chapter,
                 'routine' => $routines,
-                'course' => $batchdetails->coursename,
-                'batchcode' => $batchdetails->batch_id
+                'course' => $course,
             );
 
 
@@ -305,16 +291,16 @@ class Routine extends MX_Controller {
                 $option1 = '<a  href="routine/editRoutine?id=' . $case->id . '" class="btn btn-info btn-xs btn_width"><i class="fa fa-edit"></i>' . lang('edit') . '</a>';
             }
 
-            $option2 = '<a  href="routine/viewRoutine?batch=' . $case->batch_id . '" class="btn btn-info btn-xs btn_width"><i class="fa fa-eye"></i>' . lang('view') . '</a>';
+            $option2 = '<a  href="routine/viewRoutine?id=' . $case->id . '" class="btn btn-info btn-xs btn_width"><i class="fa fa-eye"></i>' . lang('view') . '</a>';
             if ($this->ion_auth->in_group(array('admin', 'Instructor'))) {
                 $option3 = '<a class="btn btn-info btn-xs btn_width delete_button" href="routine/delete?id=' . $case->id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i>' . lang('delete') . '</a>';
             }
 
-            $batch11 = $this->batch_model->getCourseByBatchId($case->batch_id)->coursename;
             
             $info[] = array(
-                $case->batchcode,
-                $batch11,
+                $i,
+                $case->course,
+                $case->chapter,
                 $option1 . ' ' . $option2 . ' ' . $option3
             );
         }

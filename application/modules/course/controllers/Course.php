@@ -25,6 +25,7 @@ class Course extends MX_Controller {
             $page_number = 0;
         }
         $data['courses'] = $this->course_model->getCourseByPageNumber($page_number);
+        $data['instructors'] = $this->instructor_model->getInstructor();
         $data['settings'] = $this->settings_model->getSettings();
         $data['pagee_number'] = $page_number;
         $data['p_n'] = '0';
@@ -84,12 +85,12 @@ class Course extends MX_Controller {
     public function addNew() {
 
         $id = $this->input->post('id');
-        $course_id = $this->input->post('course_id');
+        $subject_id = $this->input->post('subject_id');
         $name = $this->input->post('name');
         $topic = $this->input->post('topic');
-        $duration = $this->input->post('duration');
-        $course_fee = $this->input->post('course_fee');
-        $phone = $this->input->post('phone');
+        $instructor = $this->input->post('instructor');
+        $instructorname = $this->instructor_model->getInstructorById($instructor)->name;
+        $subject_fee = $this->input->post('subject_fee');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
@@ -97,12 +98,12 @@ class Course extends MX_Controller {
         $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         // Validating Password Field
         if (empty($id)) {
-            $this->form_validation->set_rules('course_id', 'Course Id', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+            $this->form_validation->set_rules('subject_id', 'Subject Id', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         }
         // Validating Email Field
         $this->form_validation->set_rules('topic', 'Topic', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         // Validating Address Field   
-        $this->form_validation->set_rules('duration', 'Duration', 'trim|required|min_length[1]|max_length[500]|xss_clean');
+        $this->form_validation->set_rules('instructor', 'Lecturer', 'trim|required|min_length[1]|max_length[500]|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             if (!empty($id)) {
@@ -118,13 +119,16 @@ class Course extends MX_Controller {
             //$error = array('error' => $this->upload->display_errors());
             $data = array();
             $data = array(
-                'course_id' => $course_id,
+                'subject_id' => $subject_id,
                 'name' => $name,
                 'topic' => $topic,
-                'duration' => $duration,
-                'course_fee' => $course_fee,
+                'lecturer' => $instructorname,
+                'subject_fee' => $subject_fee,
             );
-            if (empty($id)) {     // Adding New Course    
+
+            print_r($data);
+
+            if (empty($id)) {     // Adding New Course
                 $this->course_model->insertCourse($data);
                 $this->session->set_flashdata('feedback', 'Added');
             } else { // Updating Course
@@ -285,6 +289,13 @@ class Course extends MX_Controller {
     function editCourseByJason() {
         $id = $this->input->get('id');
         $data['course'] = $this->course_model->getCourseById($id);
+        echo json_encode($data);
+    }
+
+
+    function gettopicByJason() {
+        $id = $this->input->get('name');
+        $data['course'] = $this->course_model->gettopicById($id);
         echo json_encode($data);
     }
 
@@ -484,11 +495,11 @@ class Course extends MX_Controller {
             $data1['settings'] = $this->settings_model->getSettings();
             $batchquan = $this->batch_model->getBatchQuantityByCourseId($case->id);
             $info[] = array(
-                $case->course_id,
+                $case->subject_id,
                 $case->name,
                 $case->topic,
-                $case->duration,
-                $data1['settings']->currency . $case->course_fee,
+                $case->lecturer,
+                $data1['settings']->currency . $case->subject_fee,
                 $batchquan,
                 $option1 . ' ' . $option2 . ' ' . $option3 . ' ' . $option4
             );

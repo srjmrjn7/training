@@ -23,6 +23,12 @@
                 foreach ($routine_details as $key => $value) {
                     $weekdayDetails = explode(',', $value);
 
+                    if ($weekdayDetails[0] == 'sunday') {
+                        $sunday = $weekdayDetails[0];
+                        $sunday_start_time = $weekdayDetails[1];
+                        $sunday_end_time = $weekdayDetails[2];
+                    }
+
                     if ($weekdayDetails[0] == 'monday') {
                         $monday = $weekdayDetails[0];
                         $monday_start_time = $weekdayDetails[1];
@@ -61,11 +67,7 @@
                         $saturday_end_time = $weekdayDetails[2];
                     }
 
-                    if ($weekdayDetails[0] == 'sunday') {
-                        $sunday = $weekdayDetails[0];
-                        $sunday_start_time = $weekdayDetails[1];
-                        $sunday_end_time = $weekdayDetails[2];
-                    }
+
 
                     $weekdayDetails = NULL;
                 }
@@ -79,10 +81,10 @@
                     <?php if (empty($routine->routine)) { ?>
                         <div class="routine_top">
                             <div class="form-group">
-                                <label for="exampleInputEmail1"> <?php echo lang('select'); ?> <?php echo lang('course'); ?></label>
-                                <select class="form-control" name="course" id="acourse"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('select'); ?> <?php echo "Subject"; ?></label>
+                                <select class="form-control" name="course" id="acourse">
                                     <?php foreach ($courses as $course) { ?>
-                                        <option value="<?php echo $course->id; ?>" data-id="<?php echo $course->id; ?>" <?php
+                                        <option value="<?php echo $course->name; ?>" data-id="<?php echo $course->name; ?>" <?php
                                         if (!empty($routine->routine)) {
                                             if ($course->id == $routine->course) {
                                                 echo 'selected';
@@ -92,11 +94,21 @@
                                         </option>
                                     <?php } ?>
                                 </select> 
-                            </div> 
+                            </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1"> <?php echo lang('select'); ?> <?php echo lang('batch'); ?></label>
-                                <select class="form-control" name="batch_id" id="abatch"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('select'); ?> <?php echo "Chapter"; ?></label>
+                                <select class="form-control" name="chapter" id="achapter">
+                                    <?php foreach ($topic as $course) { ?>
+                                        <option value="<?php echo $course->topic;; ?>" data-id="<?php echo $course->id; ?>" <?php
+                                        if (!empty($routine->routine)) {
+                                            if ($course->id == $routine->course) {
+                                                echo 'selected';
+                                            }
+                                        }
+                                        ?> ><?php echo $course->topic; ?>
+                                        </option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -110,16 +122,59 @@
                                 $course_details = $this->course_model->getCourseById($batch_details->course);
                                 echo $course_details->name;
                                 ?> 
-                            </div> 
-
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">  <?php echo lang('batch'); ?></label>
-                                <?php echo $batch_details->batch_id; ?>                  
                             </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label>
+                                <?php
+                                $course_details = $this->course_model->getCourseById($batch_details->course);
+                                echo $course_details->topic;
+                                ?>
+                            </div>
+
+
                         </div>
                     <?php } ?>
 
                     <div class="section">
+
+                        <div class="col-md-12">
+                            <div class="form-group col-md-4">
+                                <input type="checkbox" name="sunday" value="sunday" <?php
+                                if (!empty($sunday)) {
+                                    echo 'checked';
+                                }
+                                ?>>
+                                <label for="exampleInputEmail1" class="label_for_time">  <?php echo lang('sunday'); ?></label>
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="exampleInputEmail1"> <?php echo lang('start_time'); ?></label>
+                                <div class="input-group bootstrap-timepicker">
+                                    <input type="text" class="form-control timepicker-default" name="start_time_sunday" id="exampleInputEmail1" value='<?php
+                                    if (!empty($sunday_start_time)) {
+                                        echo $sunday_start_time;
+                                    }
+                                    ?>'>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><i class="fa fa-clock"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="exampleInputEmail1"> <?php echo lang('end_time'); ?></label>
+                                <div class="input-group bootstrap-timepicker">
+                                    <input type="text" class="form-control timepicker-default" name="end_time_sunday" id="exampleInputEmail1" value='<?php
+                                    if (!empty($sunday_end_time)) {
+                                        echo $sunday_end_time;
+                                    }
+                                    ?>'>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><i class="fa fa-clock"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12">        
                             <div class="form-group col-md-4"> 
                                 <input type="checkbox" name="monday" value="monday" <?php
@@ -270,7 +325,6 @@
                             </div>      
                         </div>
 
-
                         <div class="col-md-12">        
                             <div class="form-group col-md-4">
                                 <input type="checkbox" name="friday" value="friday" <?php
@@ -338,44 +392,6 @@
                                     <input type="text" class="form-control timepicker-default" name="end_time_saturday" id="exampleInputEmail1" value='<?php
                                     if (!empty($saturday_end_time)) {
                                         echo $saturday_end_time;
-                                    }
-                                    ?>'>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="fa fa-clock"></i></button>
-                                    </span>
-                                </div>
-                            </div>      
-                        </div>
-
-                        <div class="col-md-12">        
-                            <div class="form-group col-md-4">
-                                <input type="checkbox" name="sunday" value="sunday" <?php
-                                if (!empty($sunday)) {
-                                    echo 'checked';
-                                }
-                                ?>>
-                                <label for="exampleInputEmail1" class="label_for_time">  <?php echo lang('sunday'); ?></label>
-
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1"> <?php echo lang('start_time'); ?></label>
-                                <div class="input-group bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker-default" name="start_time_sunday" id="exampleInputEmail1" value='<?php
-                                    if (!empty($sunday_start_time)) {
-                                        echo $sunday_start_time;
-                                    }
-                                    ?>'>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="fa fa-clock"></i></button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1"> <?php echo lang('end_time'); ?></label>
-                                <div class="input-group bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker-default" name="end_time_sunday" id="exampleInputEmail1" value='<?php
-                                    if (!empty($sunday_end_time)) {
-                                        echo $sunday_end_time;
                                     }
                                     ?>'>
                                     <span class="input-group-btn">
@@ -490,7 +506,33 @@
         $(".flashmessage").delay(3000).fadeOut(100);
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select[name="course"]').on('change', function () {
+            var name = $(this).val();
+            if (name) {
+                $.ajax({
+                    url: "{{ url('/course?name=') }}" + name,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        var d = $('select[name="subcategory_id"]').empty();
+                        $.each(data, function (key, value) {
 
+                            $('select[name="subcategory_id"]').append('<option value="' + value.id + '">' + value.subcategory_name + '</option>');
+
+                        });
+                    },
+                });
+
+            } else {
+                alert('danger');
+            }
+
+        });
+    });
+
+</script>
 
 
 

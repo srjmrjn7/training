@@ -107,28 +107,37 @@
                         <input type="text" class="form-control" name="question" id="exampleInputEmail1" placeholder="">
                     </div>
 
-
-                    <div class="form-group">
+					<div class="form-check">
+					<input class="form-check-input" type="radio" name="answer" id="exampleRadios1" value="1" checked>
+                    
                         <label for="exampleInputEmail1"> <?php echo 'Option 1'; ?></label>
                         <input type="text" class="form-control" name="option1" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-                    <div class="form-group">
+                    
+					</div>
+					
+					<div class="form-check">
+					<input class="form-check-input" type="radio" name="answer" id="exampleRadios1" value="2">
+                    
                         <label for="exampleInputEmail1"> <?php echo 'Option 2'; ?></label>
                         <input type="text" class="form-control" name="option2" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-					<div class="form-group">
+                    
+					</div>
+					
+					<div class="form-check">
+					<input class="form-check-input" type="radio" name="answer" id="exampleRadios1" value="3">
+					
                         <label for="exampleInputEmail1"> <?php echo 'Option 3'; ?></label>
                         <input type="text" class="form-control" name="option3" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-					<div class="form-group">
+                    
+					</div>
+					
+					<div class="form-check">
+					<input class="form-check-input" type="radio" name="answer" id="exampleRadios1" value="4">
+					
                         <label for="exampleInputEmail1"> <?php echo 'Option 4'; ?></label>
                         <input type="text" class="form-control" name="option4" id="exampleInputEmail1" value='' placeholder="">
+                    
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo 'Correct Answer'; ?></label>
-                        <input type="text" class="form-control" name="answer" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-
 
 
 

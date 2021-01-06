@@ -5,7 +5,7 @@
         <!-- page start-->
         <section class="panel">
             <header class="panel-heading">
-                <?php echo lang('courses'); ?>
+                <?php echo "Subjects"; ?>
                 <div class="clearfix search_row col-md-4 pull-right">
                     <a data-toggle="modal" href="#myModal">
                         <div class="btn-group pull-right">
@@ -49,10 +49,10 @@
                     <table class="table table-striped table-hover table-bordered" id="editable-sample">
                         <thead>
                             <tr>
-                                <th> <?php echo lang('course_id'); ?></th>
-                                <th>  <?php echo lang('course'); ?> <?php echo lang('name'); ?></th>
-                                <th> <?php echo lang('course'); ?>  <?php echo lang('topic'); ?></th>
-                                <th> <?php echo lang('duration'); ?></th>
+                                <th> <?php echo "ID"; ?></th>
+                                <th>  <?php echo "Subject"; ?> <?php echo lang('name'); ?></th>
+                                <th> <?php echo "Chapter"; ?></th>
+                                <th> <?php echo "Lecturer"; ?></th>
                                 <th> <?php echo lang('course_fee'); ?></th>
                                 <th> <?php echo lang('batch'); ?> <?php echo lang('number'); ?></th>
                                 <th class="no-print"> <?php echo lang('options'); ?></th>
@@ -96,27 +96,29 @@
             <div class="modal-body">
                 <form role="form" action="course/addNew" class="clearfix" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?> <?php echo lang('id'); ?></label>
-                        <input type="text" class="form-control" name="course_id" id="exampleInputEmail1" value='' placeholder="">
+                        <label for="exampleInputEmail1"> <?php echo "Subject ID"; ?></label>
+                        <input type="text" class="form-control" name="subject_id" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?>  <?php echo lang('name'); ?></label>
+                        <label for="exampleInputEmail1"> <?php echo "Subject"; ?>  <?php echo lang('name'); ?></label>
                         <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?> <?php echo lang('topic'); ?></label>
+                        <label for="exampleInputEmail1"> <?php echo "Chapter"; ?></label>
                         <input type="text" class="form-control" name="topic" id="exampleInputEmail1" value='' placeholder="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('duration'); ?></label>
-                        <input type="text" class="form-control" name="duration" id="exampleInputEmail1" placeholder="">
+                        <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label><br>
+                        <select class="form-control" id='selUser2' name="instructor" style="width: 100% !important;">
+                            <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('course_fee'); ?></label>
-                        <input type="text" class="form-control" name="course_fee" id="exampleInputEmail1" placeholder="<?php echo $settings->currency; ?>">
+                        <input type="text" class="form-control" name="subject_fee" id="exampleInputEmail1" placeholder="<?php echo $settings->currency; ?>">
                     </div>
 
                     <input type="hidden" name="id" value=''>
@@ -172,7 +174,7 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('course_fee'); ?></label>
-                        <input type="text" class="form-control" name="course_fee" id="exampleInputEmail1" placeholder="<?php echo $settings->currency; ?>">
+                        <input type="text" class="form-control" name="subject_fee" id="exampleInputEmail1" placeholder="<?php echo $settings->currency; ?>">
                     </div>
 
                     <input type="hidden" name="id" value=''>
@@ -270,7 +272,94 @@
 
 
 
-
+<script>
+    $(document).ready(function () {
+        $("#selUser1").select2({
+            placeholder: '<?php echo lang('select_course'); ?>',
+            allowClear: true,
+            ajax: {
+                url: 'batch/getCourseList',
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+        $("#selUser3").select2({
+            placeholder: '<?php echo lang('select_course'); ?>',
+            allowClear: true,
+            ajax: {
+                url: 'batch/getCourseList',
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+        $("#selUser2").select2({
+            placeholder: '<?php echo lang('select_instructor'); ?>',
+            allowClear: true,
+            ajax: {
+                url: 'batch/getInstructorinfo',
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+        $("#selUser4").select2({
+            placeholder: '<?php echo lang('select_instructor'); ?>',
+            allowClear: true,
+            ajax: {
+                url: 'batch/getInstructorinfo',
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function () {

@@ -1,6 +1,6 @@
 <footer class="site-footer">
     <div class="text-center">
-        20<?php echo date('y'); ?> &copy;  <?php echo $this->db->get('settings')->row()->login_title; ?>  by Code Aristos.
+        20<?php echo date('y'); ?> &copy;  <?php echo $this->db->get('settings')->row()->login_title; ?>
         <a href="<?php echo current_url() . '#'; ?>" class="go-top">
             <i class="fa fa-angle-up"></i>
         </a>

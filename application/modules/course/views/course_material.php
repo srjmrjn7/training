@@ -33,17 +33,15 @@
             <section class="col-md-3">
                 <div class="post-info course_details">
                     <div class="panel-body">
-                        <h1><strong><?php echo lang('course_details'); ?> </strong></h1>
+                        <h1><strong><?php echo "Subject Details"; ?> </strong></h1>
                         <div class="desk yellow">
-                            <h3><?php echo lang('course_name'); ?> </h3>  <?php echo $course->name; ?>
-                            <h3><?php echo lang('course_id'); ?> </h3> <?php echo $course->course_id; ?>
-                            <h3><?php echo lang('topic'); ?> </h3> <?php echo $course->topic; ?>
-                            <h3><?php echo lang('duration'); ?> </h3> <?php
-                            echo $course->duration;
-                            ;
-                            ?>
+                            <h3><?php echo "Subject Name"; ?> </h3>  <?php echo $course->name; ?>
+                            <h3><?php echo "Subject ID"; ?> </h3> <?php echo $course->subject_id; ?>
+                            <h3><?php echo "Chapter"; ?> </h3> <?php echo $course->topic; ?>
+                            <h3><?php echo "Lecturer"; ?> </h3> <?php
+                            echo $course->lecturer;?>
                             <h3><?php echo lang('course_fee'); ?> </h3> <?php echo $settings->currency; ?> <?php
-                            echo $course->course_fee;
+                            echo $course->subject_fee;
                             ?>
                         </div>
                     </div>

@@ -113,14 +113,14 @@
                                         <p class="red"> <?php
                                             echo $payment_number . ' ';
                                             if ($payment_number <= 1) {
-                                                echo lang('payment_today');
+                                                echo "Payment Today";
                                             } else {
-                                                echo lang('payments_today');
+                                                echo "Payments Today";
                                             }
                                             ?></p>
                                     </li>
                                     <li>
-                                        <a href="finance/payment"><p class="green"> <?php echo lang('see_all_payments'); ?> </p></a>
+                                        <a href="finance/payment"><p class="green"> <?php echo "See All Payments"; ?> </p></a>
                                     </li>
                                 </ul>
                             </li>
@@ -163,7 +163,7 @@
                                             ?> </p>
                                     </li>
                                     <li>
-                                        <a href="medicine"><p class="green"> <?php echo lang('see_all_students'); ?> </p></a>
+                                        <a href="student"><p class="green"> <?php echo lang('see_all_students'); ?> </p></a>
                                     </li>
                                 </ul>
                             </li>
@@ -232,11 +232,11 @@
                             <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa  fa-book"></i>
-                                    <span> <?php echo lang('course'); ?> </span>
+                                    <span> <?php echo "Subjects"; ?> </span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a  href="course"><i class="fa fa-list"></i> <?php echo lang('all_courses'); ?> </a></li>
-                                    <li><a  href="course/addNewView"><i class="fa fa-plus-circle"></i> <?php echo lang('add_course'); ?> </a></li>
+                                    <li><a  href="course"><i class="fa fa-list"></i> <?php echo "All Subjects"; ?> </a></li>
+                                    <li><a  href="course/addNewView"><i class="fa fa-plus-circle"></i> <?php echo "Add New"; ?> </a></li>
                                     <li><a  href="course/courseMaterialDetails"><i class="fa fa-file"></i> <?php echo lang('course'); ?> <?php echo lang('material'); ?> </a></li>
                                 </ul>
                             </li>
@@ -312,11 +312,24 @@
                             <li class="sub-menu">
                                 <a href="javascript:;" >
                                     <i class="fa fa-newspaper"></i>
-                                    <span><?php echo Exam; ?></span>
+                                    <span><?php echo "Exam"; ?></span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a  href="exam"><i class="fa fa-list"></i><?php echo Exam; ?></a></li>
-                                    <li><a  href="exam/viewQuestions"><i class="fa fa-list"></i><?php echo Questions; ?></a></li>
+                                    <li><a  href="exam"><i class="fa fa-list"></i><?php echo "Exam"; ?></a></li>
+                                    <li><a  href="exam/viewQuestions"><i class="fa fa-list"></i><?php echo "Questions"; ?></a></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+
+
+                        <?php if ($this->ion_auth->in_group(array('Student'))) { ?>
+                            <li class="sub-menu">
+                                <a href="javascript:;" >
+                                    <i class="fa fa-newspaper"></i>
+                                    <span><?php echo "Exam"; ?></span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a  href=""><i class="fa fa-list"></i><?php echo "Take Exam"; ?></a></li>
                                 </ul>
                             </li>
                         <?php } ?>

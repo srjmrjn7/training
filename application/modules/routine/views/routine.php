@@ -49,8 +49,9 @@
                     <table class="table table-striped table-hover table-bordered" id="editable-sample1">
                         <thead>
                             <tr>
-                                <th> <?php echo lang('batch'); ?> <?php echo lang('id'); ?></th>
-                                <th> <?php echo lang('course_name'); ?></th>
+                                <th> <?php echo "ID"; ?></th>
+                                <th> <?php echo "Subject"; ?> <?php echo lang('id'); ?></th>
+                                <th> <?php echo "Chapter"; ?></th>
                                 <th> <?php echo lang('options'); ?></th>
                             </tr>
                         </thead>

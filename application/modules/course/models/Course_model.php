@@ -19,8 +19,22 @@ class Course_model extends CI_model {
         return $query->result();
     }
 
+    function getdistinctCourse() {
+        $this->db->select('name');
+        $this->db->distinct();
+        $query = $this->db->get('course');
+        return $query->result();
+    }
+
     function getCourseById($id) {
         $this->db->where('id', $id);
+        $query = $this->db->get('course');
+        return $query->row();
+    }
+
+
+    function gettopicById($id) {
+        $this->db->where('name', $id);
         $query = $this->db->get('course');
         return $query->row();
     }

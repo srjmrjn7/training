@@ -20,20 +20,15 @@
                     <div class="panel-body">
                         <h1><strong><?php echo lang('batch_details'); ?> </strong></h1>
                         <div class="desk yellow">
-                            <h3><?php echo lang('course_name'); ?> </h3>  <?php
-                            $course_id = $this->batch_model->getBatchById($batch)->course;
-                            $couse_details = $this->course_model->getCourseById($course);
-                            echo $couse_details->name;
+                            <h3><?php echo "Subject"; ?> </h3>  <?php
+                            echo $routine->course;
                             ?>
-                            <h3><?php echo lang('batch_id'); ?> </h3> <?php echo $this->batch_model->getbatchById($batch)->batch_id; ?>
-                            <h3><?php echo lang('instructor'); ?> </h3> <?php echo $this->instructor_model->getInstructorById($batch_details->instructor)->name; ?>
+                            <h3><?php echo "Chapter"; ?> </h3> <?php echo $routine->chapter; ?>
                             <h3>
                                 <?php echo lang('start_date'); ?> </h3> <?php echo date($date_format, $batch_details->start_date); ?>
                             <h3><?php echo lang('end_date'); ?> </h3>
                             <?php echo date($date_format, $batch_details->end_date); ?>
-                            <h3><?php echo lang('course_fee'); ?> </h3> <?php echo $settings->currency; ?> <?php
-                            echo $batch_details->course_fee;
-                            ?>
+
                         </div>
                     </div>
                 </div>
@@ -72,7 +67,7 @@
                 <footer class="panel margin_top">
                     <div class="text-center hidden_details">
                         <?php echo lang('routine') ?> <br> <?php echo lang('course') ?> :  <?php
-                        $batch_details = $this->batch_model->getBatchById($batch);
+                        $batch_details = $this->batch_model->getBatchById($id);
                         echo $this->course_model->getCourseById($batch_details->course)->name;
                         ?> <br> <?php echo lang('batch_id') ?>: <?php echo $this->batch_model->getBatchById($batch_details->id)->batch_id; ?>
 
@@ -105,6 +100,33 @@
                     if (!empty($routine->routine)) {
                         $routine_details = explode('*', $routine->routine);
                         ?>
+                        <tr class="">
+                            <td>
+                                <?php echo lang('sunday'); ?>
+                            </td>
+
+                            <td>
+                                <?php
+                                foreach ($routine_details as $routine_detail) {
+                                    $weekDayDetail = explode(',', $routine_detail);
+                                    if ($weekDayDetail[0] == 'sunday') {
+                                        echo $weekDayDetail[1];
+                                    }
+                                }
+                                ?>
+                            </td>
+
+                            <td>
+                                <?php
+                                foreach ($routine_details as $routine_detail) {
+                                    $weekDayDetail = explode(',', $routine_detail);
+                                    if ($weekDayDetail[0] == 'sunday') {
+                                        echo $weekDayDetail[2];
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
                         <tr class="">
                             <td> 
                                 <?php echo lang('monday'); ?>
@@ -181,7 +203,6 @@
                             </td>
 
                         </tr>
-
                         <tr class="">
                             <td> 
                                 <?php echo lang('thursday'); ?>
@@ -207,7 +228,6 @@
                                 ?>
                             </td>
                         </tr>
-
                         <tr class="">
 
                             <td> 
@@ -237,7 +257,6 @@
                             </td>
 
                         </tr>
-
                         <tr class="">
 
                             <td> 
@@ -267,35 +286,6 @@
                             </td>
 
                         </tr>
-
-                        <tr class="">
-                            <td> 
-                                <?php echo lang('sunday'); ?>
-                            </td>
-
-                            <td>
-                                <?php
-                                foreach ($routine_details as $routine_detail) {
-                                    $weekDayDetail = explode(',', $routine_detail);
-                                    if ($weekDayDetail[0] == 'sunday') {
-                                        echo $weekDayDetail[1];
-                                    }
-                                }
-                                ?>
-                            </td>
-
-                            <td>
-                                <?php
-                                foreach ($routine_details as $routine_detail) {
-                                    $weekDayDetail = explode(',', $routine_detail);
-                                    if ($weekDayDetail[0] == 'sunday') {
-                                        echo $weekDayDetail[2];
-                                    }
-                                }
-                                ?>
-                            </td>
-                        </tr>
-
                     <?php } ?>
                     </tbody>
                 </table>
