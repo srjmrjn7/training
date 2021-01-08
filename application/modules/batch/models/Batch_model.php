@@ -3,36 +3,43 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Batch_model extends CI_model {
+class Batch_model extends CI_model
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->database();
     }
 
-    function insertBatch($data) {
+    function insertBatch($data)
+    {
         $this->db->insert('batch', $data);
     }
 
-    function getBatch() {
+    function getBatch()
+    {
         $query = $this->db->get('batch');
         return $query->result();
     }
 
-    function getBatchById($id) {
+    function getBatchById($id)
+    {
         $this->db->where('id', $id);
         $query = $this->db->get('batch');
         return $query->row();
     }
 
-    function getBatchByPageNumber($page_number) {
+    function getBatchByPageNumber($page_number)
+    {
         $data_range_1 = 50 * $page_number;
         $this->db->order_by('id', 'desc');
         $query = $this->db->get('batch', 50, $data_range_1);
         return $query->result();
     }
 
-    function getBatchQuantityByCourseId($course_id) {
+    function getBatchQuantityByCourseId($course_id)
+    {
         $this->db->where('course', $course_id);
         $query = $this->db->get('batch')->result();
         $i = 0;
@@ -45,26 +52,30 @@ class Batch_model extends CI_model {
         return $i;
     }
 
-    function checkExistInBatch($batch_id, $student_id) {
+    function checkExistInBatch($batch_id, $student_id)
+    {
         $this->db->where('batch', $batch_id);
         $this->db->where('student', $student_id);
         $student_batchs = $this->db->get('student_batch')->result();
         return $student_batchs;
     }
 
-    function getBatchByCourseId($course_id) {
+    function getBatchByCourseId($course_id)
+    {
         $this->db->where('course', $course_id);
         $query = $this->db->get('batch')->result();
         return $query;
     }
 
-    function getCourseByBatchId($batch_id) {
+    function getCourseByBatchId($batch_id)
+    {
         $this->db->where('id', $batch_id);
         $query = $this->db->get('batch')->row();
         return $query;
     }
 
-    function getBatchByKey($page_number, $key) {
+    function getBatchByKey($page_number, $key)
+    {
         $data_range_1 = 50 * $page_number;
         $this->db->like('batch_id', $key);
         $this->db->or_like('course', $key);
@@ -74,22 +85,26 @@ class Batch_model extends CI_model {
         return $query->result();
     }
 
-    function insertStudentToBatch($data) {
+    function insertStudentToBatch($data)
+    {
         $this->db->insert('student_batch', $data);
     }
 
-    function getStudentsByBatchId($batch_id) {
+    function getStudentsByBatchId($batch_id)
+    {
         $this->db->where('batch', $batch_id);
         $student_batchs = $this->db->get('student_batch')->result();
         $expected_students = array();
         foreach ($student_batchs as $student_batch) {
+
             $expected_students[] = $student_batch->student;
         }
 
         return $expected_students;
     }
 
-    function getStudentsNumberByBatchId($batch_id) {
+    function getStudentsNumberByBatchId($batch_id)
+    {
         $this->db->where('batch', $batch_id);
         $student_batchs = $this->db->get('student_batch')->result();
         $expected_students = array();
@@ -106,23 +121,27 @@ class Batch_model extends CI_model {
         return $i;
     }
 
-    function updateBatch($id, $data) {
+    function updateBatch($id, $data)
+    {
         $this->db->where('id', $id);
         $this->db->update('batch', $data);
     }
 
-    function delete($id) {
+    function delete($id)
+    {
         $this->db->where('id', $id);
         $this->db->delete('batch');
     }
 
-    function deleteStudentFromBatch($student_id, $batch_id) {
+    function deleteStudentFromBatch($student_id, $batch_id)
+    {
         $this->db->where('student', $student_id);
         $this->db->where('batch', $batch_id);
         $this->db->delete('student_batch');
     }
 
-    function updateIonUser($username, $email, $password, $ion_user_id) {
+    function updateIonUser($username, $email, $password, $ion_user_id)
+    {
         $uptade_ion_user = array(
             'username' => $username,
             'email' => $email,
@@ -132,7 +151,8 @@ class Batch_model extends CI_model {
         $this->db->update('users', $uptade_ion_user);
     }
 
-    function getBatchBySearch($search) {
+    function getBatchBySearch($search)
+    {
         $this->db->order_by('id', 'desc');
         $this->db->like('id', $search);
         $this->db->or_like('coursename', $search);
@@ -142,14 +162,16 @@ class Batch_model extends CI_model {
         return $query->result();
     }
 
-    function getBatchByLimit($limit, $start) {
+    function getBatchByLimit($limit, $start)
+    {
         $this->db->order_by('id', 'desc');
         $this->db->limit($limit, $start);
         $query = $this->db->get('batch');
         return $query->result();
     }
 
-    function getBatchByLimitBySearch($limit, $start, $search) {
+    function getBatchByLimitBySearch($limit, $start, $search)
+    {
 
         $this->db->like('id', $search);
         $this->db->order_by('id', 'desc');
@@ -161,7 +183,8 @@ class Batch_model extends CI_model {
         return $query->result();
     }
 
-    function getCourses($searchTerm) {
+    function getCourses($searchTerm)
+    {
         if (!empty($searchTerm)) {
             $this->db->select('*');
             $this->db->where("course_id like '%" . $searchTerm . "%' ");
@@ -184,7 +207,8 @@ class Batch_model extends CI_model {
         return $data;
     }
 
-    function getInstructors($searchTerm) {
+    function getInstructors($searchTerm)
+    {
         if (!empty($searchTerm)) {
             $this->db->select('*');
             $this->db->where("name like '%" . $searchTerm . "%' ");
@@ -205,7 +229,8 @@ class Batch_model extends CI_model {
         return $data;
     }
 
-    function getStudents($searchTerm) {
+    function getStudents($searchTerm)
+    {
         if (!empty($searchTerm)) {
             $this->db->select('*');
             $this->db->where("name like '%" . $searchTerm . "%' ");
@@ -226,7 +251,8 @@ class Batch_model extends CI_model {
         return $data;
     }
 
-    function getBatchMaterialBySearch($search) {
+    function getBatchMaterialBySearch($search)
+    {
         $this->db->order_by('id', 'desc');
         $this->db->like('id', $search);
         $this->db->or_like('coursename', $search);
@@ -235,14 +261,16 @@ class Batch_model extends CI_model {
         return $query->result();
     }
 
-    function getBatchMaterialByLimit($limit, $start) {
+    function getBatchMaterialByLimit($limit, $start)
+    {
         $this->db->order_by('id', 'desc');
         $this->db->limit($limit, $start);
         $query = $this->db->get('batch_material');
         return $query->result();
     }
 
-    function getBatchMaterialByLimitBySearch($limit, $start, $search) {
+    function getBatchMaterialByLimitBySearch($limit, $start, $search)
+    {
 
         $this->db->like('id', $search);
         $this->db->order_by('id', 'desc');
@@ -253,29 +281,34 @@ class Batch_model extends CI_model {
         return $query->result();
     }
 
-    function getBatchMaterial() {
+    function getBatchMaterial()
+    {
         $query = $this->db->get('batch_material');
         return $query->result();
     }
 
-    function deleteBatchMaterial($id) {
+    function deleteBatchMaterial($id)
+    {
         $this->db->where('id', $id);
         $this->db->delete('batch_material');
     }
 
-    function getBatchMaterialByBatchId($id) {
+    function getBatchMaterialByBatchId($id)
+    {
         $this->db->where('batch_id', $id);
         $query = $this->db->get('batch_material');
         return $query->result();
     }
 
-    function getBatchMaterialById($id) {
+    function getBatchMaterialById($id)
+    {
         $this->db->where('id', $id);
         $query = $this->db->get('batch_material');
         return $query->row();
     }
 
-    function getOngoingBatch() {
+    function getOngoingBatch()
+    {
         $this->db->select('*');
         $this->db->from('batch');
         $this->db->where('end_date >=', time());
@@ -283,9 +316,6 @@ class Batch_model extends CI_model {
         $query = $this->db->get();
         return $query->result();
     }
-    
-    
-    
-    
+
 
 }

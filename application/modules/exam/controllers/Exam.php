@@ -3,8 +3,10 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Exam extends MX_Controller {
-	function __construct() {
+class Exam extends MX_Controller
+{
+    function __construct()
+    {
         parent::__construct();
         $this->load->model('Exam_model');
 
@@ -15,9 +17,10 @@ class Exam extends MX_Controller {
             redirect('home/permission');
         }
     }
-	
-	
-	public function index() {
+
+
+    public function index()
+    {
         $data['exam'] = $this->Exam_model->getExam();
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
@@ -25,7 +28,8 @@ class Exam extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-	public function viewAllQuestions() {
+    public function viewAllQuestions()
+    {
         $data['exam'] = $this->Exam_model->getExamQuestions();
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
@@ -33,7 +37,8 @@ class Exam extends MX_Controller {
         $this->load->view('home/footer'); // just the header file		
     }
 
-	public function addNew() {
+    public function addNew()
+    {
 
         $exam_id = $this->input->post('exam_id');
         $question = $this->input->post('question');
@@ -43,34 +48,35 @@ class Exam extends MX_Controller {
         $option4 = $this->input->post('option4');
         $answer = $this->input->post('answer');
         $add_date = time();
-                $data = array();
-                $data = array(
-                    'exam_id' => $exam_id,
-                    'question' => $question,
-                    'option1' => $option1,
-                    'option2' => $option2,
-                    'option3' => $option3,
-                    'option4' => $option4,
-                    'answer' => $answer
-                );
+        $data = array();
+        $data = array(
+            'exam_id' => $exam_id,
+            'question' => $question,
+            'option1' => $option1,
+            'option2' => $option2,
+            'option3' => $option3,
+            'option4' => $option4,
+            'answer' => $answer
+        );
 
-            if (empty($id)) {     // Adding New Exam
-                    $this->Exam_model->insertqa($data);
-                    $this->session->set_flashdata('feedback', 'Added');
-            } else { // Updating Student
-                $this->Exam_model->updateqa($id, $data);
-                $this->session->set_flashdata('feedback', 'Updated');
-            }
-            // Loading View
-            redirect('exam');
+        if (empty($id)) {     // Adding New Exam
+            $this->Exam_model->insertqa($data);
+            $this->session->set_flashdata('feedback', 'Added');
+        } else { // Updating Student
+            $this->Exam_model->updateqa($id, $data);
+            $this->session->set_flashdata('feedback', 'Updated');
+        }
+        // Loading View
+        redirect('exam');
     }
-	
-	function getExamList() {
+
+    function getExamList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
         $search = $this->input->post('search')['value'];
-$data['cases'] = $this->Exam_model->getExam();
+        $data['cases'] = $this->Exam_model->getExam();
         /*if ($limit == -1) {
             if (!empty($search)) {
                 $data['cases'] = $this->Exam_model->getExamBySearch($search);
@@ -123,9 +129,10 @@ $data['cases'] = $this->Exam_model->getExam();
 
         echo json_encode($output);
     }
-	
-	
-	function getQuestionList() {
+
+
+    function getQuestionList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -185,33 +192,19 @@ $data['cases'] = $this->Exam_model->getExam();
     }
 
 
-    function getQuestionById() {
+    function getQuestionByid()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
         $search = $this->input->post('search')['value'];
-        $data['cases'] = $this->Exam_model->getQuestionById();
-        /*if ($limit == -1) {
-            if (!empty($search)) {
-                $data['cases'] = $this->Exam_model->getExamBySearch($search);
-            } else {
-                $data['cases'] = $this->Exam_model->getExam();
-            }
-        } else {
-            if (!empty($search)) {
-                $data['cases'] = $this->Exam_model->getExamByLimitBySearch($limit, $start, $search);
-            } else {
-                $data['cases'] = $this->Exam_model->getExamByLimit($limit, $start);
-            }
-        }*/
-        //  $data['patients'] = $this->patient_model->getPatient();
+        $id = $this->input->get('id');
+        $data['cases'] = $this->Exam_model->getQuestionById($id);
         $i = 0;
         foreach ($data['cases'] as $case) {
             $i = $i + 1;
-
-            $option1 = '<a class="btn btn-info btn-xs btn_width" href="exam/viewQuestionsById?id=' . $case->exam_id . '"><i class="fa fa-eye"> </i>' . 'View Questions' . '</a>';
-            $option2 = '<button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="' . $case->exam_id . '"><i class="fa fa-edit"></i>' . lang('edit') . '</button>';
-            $option3 = '<a class="btn btn-info btn-xs btn_width delete_button" href="exam/delete?id=' . $case->exam_id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i>' . lang('delete') . '</a>';
+            $option1 = '<button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="' . $case->exam_id . '"><i class="fa fa-edit"></i>' . lang('edit') . '</button>';
+            $option2 = '<a class="btn btn-info btn-xs btn_width delete_button" href="exam/deleteqa?id=' . $case->id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i>' . lang('delete') . '</a>';
             $imgoption = '<img style="width:95%;"src="' . $case->img_url . '">';
 
             $info[] = array(
@@ -223,7 +216,7 @@ $data['cases'] = $this->Exam_model->getExam();
                 $case->option3,
                 $case->option4,
                 $case->answer,
-                $option1 . ' ' . $option2 . ' ' . $option3
+                $option1 . ' ' . $option2
             );
         }
 
@@ -245,10 +238,10 @@ $data['cases'] = $this->Exam_model->getExam();
 
         echo json_encode($output);
     }
-	
-	
-	
-	function delete() {
+
+
+    function delete()
+    {
         $data = array();
         $id = $this->input->get('id');
         $user_data = $this->db->get_where('exam', array('exam_id' => $id))->row();
@@ -257,7 +250,8 @@ $data['cases'] = $this->Exam_model->getExam();
         redirect('exam');
     }
 
-    function deleteqa() {
+    function deleteqa()
+    {
         $data = array();
         $id = $this->input->get('id');
         $user_data = $this->db->get_where('qa', array('id' => $id))->row();
@@ -266,19 +260,22 @@ $data['cases'] = $this->Exam_model->getExam();
         redirect('exam/viewQuestions');
     }
 
-	function viewQuestionsById() {
+    function viewQuestionsById()
+    {
         $data = array();
         $data['settings'] = $this->settings_model->getSettings();
+
         $this->load->view('home/dashboard', $data); // just the header file
-        $this->load->view('qabyid', $qa);
+        $this->load->view('qabyid');
         $this->load->view('home/footer'); // just the header file
     }
 
-	function viewQuestions() {
+    function viewQuestions()
+    {
         $data = array();
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
-        $this->load->view('qa', $qa);
+        $this->load->view('qa');
         $this->load->view('home/footer'); // just the header file
     }
 

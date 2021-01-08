@@ -3,9 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Student extends MX_Controller {
+class Student extends MX_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->module('sms');
         $this->load->model('student_model');
@@ -22,7 +24,8 @@ class Student extends MX_Controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
 
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
@@ -37,7 +40,8 @@ class Student extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function studentByPageNumber() {
+    public function studentByPageNumber()
+    {
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
             $page_number = 0;
@@ -51,7 +55,8 @@ class Student extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function searchStudent() {
+    function searchStudent()
+    {
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
             $page_number = 0;
@@ -67,14 +72,16 @@ class Student extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNewView() {
+    public function addNewView()
+    {
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
         $this->load->view('add_new');
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNew() {
+    public function addNew()
+    {
 
         $id = $this->input->post('id');
         $name = $this->input->post('name');
@@ -237,12 +244,14 @@ class Student extends MX_Controller {
         }
     }
 
-    function getStudent() {
+    function getStudent()
+    {
         $data['students'] = $this->student_model->getStudent();
         $this->load->view('student', $data);
     }
 
-    function details() {
+    function details()
+    {
         $student_id = $this->input->get('student_id');
         if ($this->ion_auth->in_group(array('Student'))) {
             $user = $this->ion_auth->get_user_id();
@@ -262,7 +271,8 @@ class Student extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function editStudent() {
+    function editStudent()
+    {
         $data = array();
         $id = $this->input->get('id');
         $data['student'] = $this->student_model->getStudentById($id);
@@ -271,13 +281,15 @@ class Student extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function editStudentByJason() {
+    function editStudentByJason()
+    {
         $id = $this->input->get('id');
         $data['student'] = $this->student_model->getStudentById($id);
         echo json_encode($data);
     }
 
-    function delete() {
+    function delete()
+    {
         $data = array();
         $id = $this->input->get('id');
         $user_data = $this->db->get_where('student', array('id' => $id))->row();
@@ -294,7 +306,8 @@ class Student extends MX_Controller {
         redirect('student');
     }
 
-    function getStudentList() {
+    function getStudentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];

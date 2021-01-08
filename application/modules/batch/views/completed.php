@@ -29,8 +29,6 @@
                         <thead>
                             <tr>
                                 <th> <?php echo lang('batch_id'); ?></th>
-                                <th> <?php echo lang('course'); ?></th>
-                                <th> <?php echo lang('instructor'); ?></th>
                                 <th> <?php echo lang('start_date'); ?></th>
                                 <th> <?php echo lang('end_date'); ?></th>
                                 <th> <?php echo lang('students'); ?></th>
@@ -67,7 +65,8 @@
 
 
 <!-- Add Batch Modal-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -79,39 +78,25 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('batch_id'); ?></label>
-                        <input type="text" class="form-control" name="batch_id" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label><br>
-                        <select class="form-control" id='selUser1' name="course" style="width: 100% !important;">
-                         <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label><br>
-                        <select class="form-control" id='selUser2' name="instructor" style="width: 100% !important;">
-                        <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
-                        </select>
-
+                        <input type="text" class="form-control" name="batch_id" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('start_date'); ?></label>
-                        <input type="text" class="form-control default-date-picker" name="start_date" id="exampleInputEmail1" placeholder="">
+                        <input type="text" class="form-control default-date-picker" name="start_date"
+                               id="exampleInputEmail1" placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('end_date'); ?></label>
-                        <input type="text" class="form-control default-date-picker" name="end_date" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course_fee'); ?></label>
-                        <input type="text" class="form-control" name="course_fee" id="exampleInputEmail1" placeholder="">
+                        <input type="text" class="form-control default-date-picker" name="end_date"
+                               id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <input type="hidden" name="id" value=''>
 
                     <div class="form-group col-md-12">
-                        <button type="submit" name="submit" class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
+                        <button type="submit" name="submit"
+                                class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
                     </div>
 
                 </form>
@@ -123,13 +108,9 @@
 <!-- Add Batch Modal-->
 
 
-
-
-
-
-
 <!-- Edit Event Modal-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,47 +118,31 @@
                 <h4 class="modal-title">  <?php echo lang('edit_batch'); ?></h4>
             </div>
             <div class="modal-body">
-                <form role="form" id="editBatchForm" class="clearfix" action="batch/addNew" method="post" enctype="multipart/form-data">
+                <form role="form" id="editBatchForm" class="clearfix" action="batch/addNew" method="post"
+                      enctype="multipart/form-data">
 
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('batch_id'); ?></label>
-                        <input type="text" class="form-control" name="batch_id" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="batch_id" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label><br>
-                        <select class="form-control" id='selUser3' name="course" style="width: 100% !important;">
-                        <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label>
-                        <select class="form-control" id='selUser4' name="instructor" style="width: 100% !important;">
-                       <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
-                        </select>
-
-
-                    </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('start_date'); ?></label>
-                        <input type="text" class="form-control default-date-picker" name="start_date" id="exampleInputEmail1" placeholder="">
+                        <input type="text" class="form-control default-date-picker" name="start_date"
+                               id="exampleInputEmail1" placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('end_date'); ?></label>
-                        <input type="text" class="form-control default-date-picker" name="end_date" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course_fee'); ?></label>
-                        <input type="text" class="form-control" name="course_fee" id="exampleInputEmail1" placeholder="">
+                        <input type="text" class="form-control default-date-picker" name="end_date"
+                               id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <input type="hidden" name="id" value=''>
 
                     <div class="form-group col-md-12">
-                        <button type="submit" name="submit" class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
+                        <button type="submit" name="submit"
+                                class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
                     </div>
 
                 </form>

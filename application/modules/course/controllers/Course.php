@@ -3,9 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Course extends MX_Controller {
+class Course extends MX_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->model('course_model');
         $this->load->model('batch/batch_model');
@@ -18,7 +20,8 @@ class Course extends MX_Controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
 
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
@@ -34,7 +37,8 @@ class Course extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function courseByPageNumber() {
+    public function courseByPageNumber()
+    {
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
             $page_number = 0;
@@ -48,7 +52,8 @@ class Course extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function course_details() {
+    function course_details()
+    {
 
         $course_id = $this->input->get('course_id');
         $data['batchs'] = $this->batch_model->getBatchByCourseId($course_id);
@@ -59,7 +64,8 @@ class Course extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function searchCourse() {
+    function searchCourse()
+    {
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
             $page_number = 0;
@@ -75,14 +81,16 @@ class Course extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNewView() {
+    public function addNewView()
+    {
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
         $this->load->view('add_new');
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNew() {
+    public function addNew()
+    {
 
         $id = $this->input->post('id');
         $subject_id = $this->input->post('subject_id');
@@ -140,7 +148,8 @@ class Course extends MX_Controller {
         }
     }
 
-    function courseMaterial() {
+    function courseMaterial()
+    {
         $data = array();
         $id = $this->input->get('course');
         $data['settings'] = $this->settings_model->getSettings();
@@ -151,7 +160,8 @@ class Course extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function courseMaterialDetails() {
+    function courseMaterialDetails()
+    {
         $data = array();
         $id = $this->input->get('course');
         $data['settings'] = $this->settings_model->getSettings();
@@ -162,7 +172,8 @@ class Course extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function editCourseMaterialData() {
+    function editCourseMaterialData()
+    {
         $title = $this->input->post('title');
         $course_id = $this->input->post('course');
         $id = $this->input->post('id');
@@ -188,7 +199,8 @@ class Course extends MX_Controller {
         }
     }
 
-    function addCourseMaterial() {
+    function addCourseMaterial()
+    {
         $title = $this->input->post('title');
         $course_id = $this->input->post('course');
         $img_url = $this->input->post('img_url');
@@ -271,12 +283,14 @@ class Course extends MX_Controller {
         }
     }
 
-    function getCourse() {
+    function getCourse()
+    {
         $data['courses'] = $this->course_model->getCourse();
         $this->load->view('course', $data);
     }
 
-    function editCourse() {
+    function editCourse()
+    {
         $data = array();
         $data['settings'] = $this->settings_model->getSettings();
         $id = $this->input->get('id');
@@ -286,20 +300,23 @@ class Course extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function editCourseByJason() {
+    function editCourseByJason()
+    {
         $id = $this->input->get('id');
         $data['course'] = $this->course_model->getCourseById($id);
         echo json_encode($data);
     }
 
 
-    function gettopicByJason() {
+    function gettopicByJason()
+    {
         $id = $this->input->get('name');
         $data['course'] = $this->course_model->gettopicById($id);
         echo json_encode($data);
     }
 
-    function deleteCourseMaterial() {
+    function deleteCourseMaterial()
+    {
         $id = $this->input->get('id');
         $course_material = $this->course_model->getCourseMaterialById($id);
         $path = $course_material->url;
@@ -312,7 +329,8 @@ class Course extends MX_Controller {
         redirect("course/courseMaterial?course=" . $course_material->course);
     }
 
-    function deleteCourseMaterialDetails() {
+    function deleteCourseMaterialDetails()
+    {
         $id = $this->input->get('id');
         $course_material = $this->course_model->getCourseMaterialById($id);
         $path = $course_material->url;
@@ -325,14 +343,16 @@ class Course extends MX_Controller {
         redirect("course/courseMaterialDetails");
     }
 
-    function delete() {
+    function delete()
+    {
         $id = $this->input->get('id');
         $this->course_model->delete($id);
         $this->session->set_flashdata('feedback', 'Deleted');
         redirect('course');
     }
 
-    function getCourseMaterialList() {
+    function getCourseMaterialList()
+    {
 
         $requestData = $_REQUEST;
         $start = $requestData['start'];
@@ -393,7 +413,8 @@ class Course extends MX_Controller {
         echo json_encode($output);
     }
 
-    public function getCourseList() {
+    public function getCourseList()
+    {
         // Search term
         $searchTerm = $this->input->post('searchTerm');
 
@@ -403,7 +424,8 @@ class Course extends MX_Controller {
         echo json_encode($response);
     }
 
-    public function editCourseMaterial() {
+    public function editCourseMaterial()
+    {
         // Search term
         $id = $this->input->get('id');
 
@@ -413,7 +435,8 @@ class Course extends MX_Controller {
         echo json_encode($data);
     }
 
-    public function getBatchListByCourse() {
+    public function getBatchListByCourse()
+    {
         // Search term
         $searchTerm = $this->input->get('searchTerm');
         $course = $this->input->get('course');
@@ -423,7 +446,8 @@ class Course extends MX_Controller {
         echo json_encode($response);
     }
 
-    public function addbatchMatrial() {
+    public function addbatchMatrial()
+    {
         $batch = $this->input->post('batch');
         $materialid = $this->input->post('materialid');
         $sharedmaterialwithbatch = $this->course_model->checkExistMaterialInBatch($batch, $materialid);
@@ -461,7 +485,8 @@ class Course extends MX_Controller {
         }
     }
 
-    function getCourseListJson() {
+    function getCourseListJson()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -486,21 +511,19 @@ class Course extends MX_Controller {
         foreach ($data['cases'] as $case) {
             $i = $i + 1;
             $option1 = '<a class="btn btn-info btn-xs btn_width details" href="course/course_details?course_id=' . $case->id . '"> <i class="fa fa-eye"> </i>' . lang('batches') . '</a>';
-            $option2 = '<button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="' . $case->id . '"><i class="fa fa-edit"></i>' . lang('edit') . '</button>';
+            $option2 = '<a class="btn btn-info btn-xs btn_width details" href="course/editCourse?id=' . $case->id . '"> <i class="fa fa-edit"> </i>' . lang('edit') . '</a>';
             $option3 = '<a class="btn btn-info btn-xs btn_width" href="course/courseMaterial?course=' . $case->id . '"><i class="fa fa-file"> </i>' . lang('course') . ' ' . lang('material') . '</a>';
             if ($this->ion_auth->in_group('admin')) {
                 $option4 = '<a class="btn btn-info btn-xs btn_width delete_button" href="course/delete?id=' . $case->id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i>' . lang('delete') . '</a>';
             }
 
             $data1['settings'] = $this->settings_model->getSettings();
-            $batchquan = $this->batch_model->getBatchQuantityByCourseId($case->id);
             $info[] = array(
                 $case->subject_id,
                 $case->name,
                 $case->topic,
                 $case->lecturer,
                 $data1['settings']->currency . $case->subject_fee,
-                $batchquan,
                 $option1 . ' ' . $option2 . ' ' . $option3 . ' ' . $option4
             );
         }

@@ -7,7 +7,7 @@
             <header class="panel-heading">
                 <?php echo lang('batches'); ?>
 
-                <div class="col-md-4 no-print pull-right"> 
+                <div class="col-md-4 no-print pull-right">
                     <a data-toggle="modal" href="#myModal">
                         <div class="btn-group pull-right">
                             <button id="add_new" class="btn-xs green">
@@ -15,7 +15,7 @@
                             </button>
                         </div>
                     </a>
-                </div> 
+                </div>
             </header>
             <style>
 
@@ -27,25 +27,23 @@
 
                     <table class="table table-striped table-hover table-bordered" id="editable-sample1">
                         <thead>
-                            <tr>
-                                <th> <?php echo lang('batch_id'); ?></th>
-                                <th> <?php echo lang('course'); ?></th>
-                                <th> <?php echo lang('instructor'); ?></th>
-                                <th> <?php echo lang('start_date'); ?></th>
-                                <th> <?php echo lang('end_date'); ?></th>
-                                <th> <?php echo lang('students'); ?></th>
-                                <th> <?php echo lang('status'); ?></th>
-                                <th class="no-print"> <?php echo lang('options'); ?></th>
-                            </tr>
+                        <tr>
+                            <th> <?php echo lang('batch_id'); ?></th>
+                            <th> <?php echo lang('start_date'); ?></th>
+                            <th> <?php echo lang('end_date'); ?></th>
+                            <th> <?php echo lang('students'); ?></th>
+                            <th> <?php echo lang('status'); ?></th>
+                            <th class="no-print"> <?php echo lang('options'); ?></th>
+                        </tr>
                         </thead>
                         <tbody>
                         <style>
 
-                            .img_url{
-                                height:20px;
-                                width:20px;
-                                background-size: contain; 
-                                max-height:20px;
+                            .img_url {
+                                height: 20px;
+                                width: 20px;
+                                background-size: contain;
+                                max-height: 20px;
                                 border-radius: 100px;
                             }
 
@@ -64,10 +62,9 @@
 <!--footer start-->
 
 
-
-
 <!-- Add Batch Modal-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -79,39 +76,25 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('batch_id'); ?></label>
-                        <input type="text" class="form-control" name="batch_id" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label><br>
-                        <select class="form-control" id='selUser1' name="course" style="width: 100% !important;">
-                         <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label><br>
-                        <select class="form-control" id='selUser2' name="instructor" style="width: 100% !important;">
-                        <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
-                        </select>
-
+                        <input type="text" class="form-control" name="batch_id" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('start_date'); ?></label>
-                        <input type="text" class="form-control default-date-picker" name="start_date" id="exampleInputEmail1" placeholder="">
+                        <input type="text" class="form-control default-date-picker" name="start_date"
+                               id="exampleInputEmail1" placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('end_date'); ?></label>
-                        <input type="text" class="form-control default-date-picker" name="end_date" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course_fee'); ?></label>
-                        <input type="text" class="form-control" name="course_fee" id="exampleInputEmail1" placeholder="">
+                        <input type="text" class="form-control default-date-picker" name="end_date"
+                               id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <input type="hidden" name="id" value=''>
 
                     <div class="form-group col-md-12">
-                        <button type="submit" name="submit" class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
+                        <button type="submit" name="submit"
+                                class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
                     </div>
 
                 </form>
@@ -123,13 +106,9 @@
 <!-- Add Batch Modal-->
 
 
-
-
-
-
-
 <!-- Edit Event Modal-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,47 +116,31 @@
                 <h4 class="modal-title">  <?php echo lang('edit_batch'); ?></h4>
             </div>
             <div class="modal-body">
-                <form role="form" id="editBatchForm" class="clearfix" action="batch/addNew" method="post" enctype="multipart/form-data">
+                <form role="form" id="editBatchForm" class="clearfix" action="batch/addNew" method="post"
+                      enctype="multipart/form-data">
 
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('batch_id'); ?></label>
-                        <input type="text" class="form-control" name="batch_id" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="batch_id" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label><br>
-                        <select class="form-control" id='selUser3' name="course" style="width: 100% !important;">
-                        <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label>
-                        <select class="form-control" id='selUser4' name="instructor" style="width: 100% !important;">
-                       <!--   <option value='0'><?php //echo lang('select_course');         ?></option>-->
-                        </select>
-
-
-                    </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('start_date'); ?></label>
-                        <input type="text" class="form-control default-date-picker" name="start_date" id="exampleInputEmail1" placeholder="">
+                        <input type="text" class="form-control default-date-picker" name="start_date"
+                               id="exampleInputEmail1" placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('end_date'); ?></label>
-                        <input type="text" class="form-control default-date-picker" name="end_date" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course_fee'); ?></label>
-                        <input type="text" class="form-control" name="course_fee" id="exampleInputEmail1" placeholder="">
+                        <input type="text" class="form-control default-date-picker" name="end_date"
+                               id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <input type="hidden" name="id" value=''>
 
                     <div class="form-group col-md-12">
-                        <button type="submit" name="submit" class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
+                        <button type="submit" name="submit"
+                                class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
                     </div>
 
                 </form>
@@ -208,19 +171,17 @@
                 var end = response.batch.end_date * 1000;
                 var d_s = new Date(start);
                 var d_e = new Date(end);
-<?php
-$date_format = $settings->date_format;
-if ($date_format == 1) {
-    ?>
-                    var da_start = d_s.getDate() + '-' + (d_s.getMonth() + 1) + '-' + d_s.getFullYear();
-                    var da_end = d_e.getDate() + '-' + (d_e.getMonth() + 1) + '-' + d_e.getFullYear();
-<?php } else {
-    ?>
-                    var da_start = (d_s.getMonth() + 1) + '/' + d_s.getDate() + '/' + d_s.getFullYear();
-                    var da_end = (d_e.getMonth() + 1) + '/' + d_e.getDate() + '/' + d_e.getFullYear();
-<?php } ?>
-
-
+                <?php
+                $date_format = $settings->date_format;
+                if ($date_format == 1) {
+                ?>
+                var da_start = d_s.getDate() + '-' + (d_s.getMonth() + 1) + '-' + d_s.getFullYear();
+                var da_end = d_e.getDate() + '-' + (d_e.getMonth() + 1) + '-' + d_e.getFullYear();
+                <?php } else {
+                ?>
+                var da_start = (d_s.getMonth() + 1) + '/' + d_s.getDate() + '/' + d_s.getFullYear();
+                var da_end = (d_e.getMonth() + 1) + '/' + d_e.getDate() + '/' + d_e.getFullYear();
+                <?php } ?>
 
                 // Populate the form fields with the data returned from server
                 $('#editBatchForm').find('[name="id"]').val(response.batch.id).end()
@@ -332,8 +293,6 @@ if ($date_format == 1) {
     });
 </script>
 <script>
-
-
     $(document).ready(function () {
         var table = $('#editable-sample1').DataTable({
             responsive: true,
@@ -350,8 +309,8 @@ if ($date_format == 1) {
                 loadingIndicator: true
             },
             dom: "<'row'<'col-sm-3'l><'col-sm-5 text-center'B><'col-sm-4'f>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             buttons: [
                 'copyHtml5',
                 'excelHtml5',
@@ -378,6 +337,6 @@ if ($date_format == 1) {
             },
         });
         table.buttons().container()
-                .appendTo('.custom_buttons');
+            .appendTo('.custom_buttons');
     });
 </script>

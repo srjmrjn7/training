@@ -8,17 +8,17 @@
                 <?php echo lang('student'); ?>
                 <div class="clearfix search_row col-md-4 pull-right">
                     <a data-toggle="modal" href="#myModal">
-                        <div class="btn-group pull-right"> 
+                        <div class="btn-group pull-right">
                             <button class="btn-xs green">
-                                <i class="fa fa-plus-circle"></i>  <?php echo lang('add_student'); ?>
+                                <i class="fa fa-plus-circle"></i> <?php echo lang('add_student'); ?>
                             </button>
                         </div>
-                    </a>  
+                    </a>
                 </div>
             </header>
             <style>
 
-                .editable-table .search_form{
+                .editable-table .search_form {
                     border: 0px solid #ccc !important;
                     padding: 0px !important;
                     background: none !important;
@@ -27,14 +27,14 @@
                 }
 
 
-                .editable-table .search_form input{
+                .editable-table .search_form input {
                     padding: 6px !important;
                     width: 250px !important;
                     background: #fff !important;
                     border-radius: none !important;
                 }
 
-                .editable-table .search_row{
+                .editable-table .search_row {
                     margin-bottom: 20px !important;
                 }
 
@@ -50,28 +50,28 @@
 
                     <table class="table table-striped table-hover table-bordered" id="editable-sample1">
                         <thead>
-                            <tr>
-                                <th> <?php echo lang('image'); ?></th>
-                                <th> <?php echo lang('name'); ?></th>
-                                <th> <?php echo lang('email'); ?></th>
-                                <th> <?php echo lang('address'); ?></th>
-                                <th> <?php echo lang('phone'); ?></th>
-                                <th> <?php echo lang('options'); ?></th>
-                            </tr>
+                        <tr>
+                            <th> <?php echo lang('image'); ?></th>
+                            <th> <?php echo lang('name'); ?></th>
+                            <th> <?php echo lang('email'); ?></th>
+                            <th> <?php echo lang('address'); ?></th>
+                            <th> <?php echo lang('phone'); ?></th>
+                            <th> <?php echo lang('options'); ?></th>
+                        </tr>
                         </thead>
                         <tbody>
                         <style>
 
-                            .img_url{
-                                height:20px;
-                                width:20px;
-                                background-size: contain; 
-                                max-height:20px;
+                            .img_url {
+                                height: 20px;
+                                width: 20px;
+                                background-size: contain;
+                                max-height: 20px;
                                 border-radius: 100px;
                             }
 
                         </style>
-                       
+
                         </tbody>
                     </table>
                 </div>
@@ -84,10 +84,9 @@
 <!--footer start-->
 
 
-
-
 <!-- Add Student Modal-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,19 +101,23 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('email'); ?></label>
-                        <input type="text" class="form-control" name="email" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="email" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('password'); ?></label>
-                        <input type="password" class="form-control" name="password" id="exampleInputEmail1" placeholder="">
+                        <input type="password" class="form-control" name="password" id="exampleInputEmail1"
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('address'); ?></label>
-                        <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="address" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('phone'); ?></label>
-                        <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('image'); ?></label>
@@ -122,7 +125,8 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                        <button type="submit" name="submit" class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
+                        <button type="submit" name="submit"
+                                class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
                     </div>
 
                 </form>
@@ -134,11 +138,9 @@
 <!-- Add Student Modal-->
 
 
-
-
-
 <!-- Edit Event Modal-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -146,26 +148,32 @@
                 <h4 class="modal-title">  <?php echo lang('edit_student'); ?></h4>
             </div>
             <div class="modal-body clearfix">
-                <form role="form" id="editStudentForm" action="student/addNew" method="post" enctype="multipart/form-data">
+                <form role="form" id="editStudentForm" action="student/addNew" method="post"
+                      enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('name'); ?></label>
-                        <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="name" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('password'); ?></label>
-                        <input type="password" class="form-control" name="password" id="exampleInputEmail1" placeholder="********">
+                        <input type="password" class="form-control" name="password" id="exampleInputEmail1"
+                               placeholder="********">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('email'); ?></label>
-                        <input type="text" class="form-control" name="email" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="email" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('address'); ?></label>
-                        <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="address" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('phone'); ?></label>
-                        <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="phone" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('image'); ?></label>
@@ -173,9 +181,10 @@
                     </div>
                     <input type="hidden" name="id" value=''>
                     <div class="form-group col-md-12">
-                        <button type="submit" name="submit" class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
+                        <button type="submit" name="submit"
+                                class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
                     </div>
-                    
+
                 </form>
 
             </div>
@@ -188,8 +197,8 @@
 <script src="common/js/codearistos.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-         $(".table").on("click", ".editbutton", function () { 
-          //  e.preventDefault(e);
+        $(".table").on("click", ".editbutton", function () {
+            //  e.preventDefault(e);
             // Get the record's ID via attribute  
             var iid = $(this).attr('data-id');
             $('#editStudentForm').trigger("reset");
@@ -212,7 +221,7 @@
     });
 </script>
 <script>
-    
+
 
     $(document).ready(function () {
         var table = $('#editable-sample1').DataTable({
@@ -230,8 +239,8 @@
                 loadingIndicator: true
             },
             dom: "<'row'<'col-sm-3'l><'col-sm-5 text-center'B><'col-sm-4'f>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             buttons: [
                 'copyHtml5',
                 'excelHtml5',
@@ -240,7 +249,7 @@
                 {
                     extend: 'print',
                     exportOptions: {
-                       columns: [1, 2,3,4],
+                        columns: [1, 2, 3, 4],
                     }
                 },
             ],
@@ -258,11 +267,9 @@
             },
         });
         table.buttons().container()
-                .appendTo('.custom_buttons');
+            .appendTo('.custom_buttons');
     });
 </script>
-
-
 
 
 <script>

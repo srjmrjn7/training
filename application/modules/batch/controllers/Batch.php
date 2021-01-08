@@ -3,9 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Batch extends MX_Controller {
+class Batch extends MX_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->module('sms');
         $this->load->model('batch_model');
@@ -21,7 +23,8 @@ class Batch extends MX_Controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
 
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
@@ -38,7 +41,8 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function ongoing() {
+    public function ongoing()
+    {
         $data['courses'] = $this->course_model->getCourse();
         $data['instructors'] = $this->instructor_model->getInstructor();
         $data['settings'] = $this->settings_model->getSettings();
@@ -46,8 +50,9 @@ class Batch extends MX_Controller {
         $this->load->view('ongoing', $data);
         $this->load->view('home/footer'); // just the header file
     }
-    
-     public function upcoming() {
+
+    public function upcoming()
+    {
         $data['courses'] = $this->course_model->getCourse();
         $data['instructors'] = $this->instructor_model->getInstructor();
         $data['settings'] = $this->settings_model->getSettings();
@@ -55,8 +60,9 @@ class Batch extends MX_Controller {
         $this->load->view('upcoming', $data);
         $this->load->view('home/footer'); // just the header file
     }
-    
-     public function completed() {
+
+    public function completed()
+    {
         $data['courses'] = $this->course_model->getCourse();
         $data['instructors'] = $this->instructor_model->getInstructor();
         $data['settings'] = $this->settings_model->getSettings();
@@ -65,7 +71,8 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function batchByPageNumber() {
+    public function batchByPageNumber()
+    {
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
             $page_number = 0;
@@ -81,7 +88,8 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function searchBatch() {
+    function searchBatch()
+    {
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
             $page_number = 0;
@@ -97,7 +105,8 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNewView() {
+    public function addNewView()
+    {
         $data['settings'] = $this->settings_model->getSettings();
         $data['instructors'] = $this->instructor_model->getInstructor();
         $data['courses'] = $this->course_model->getCourse();
@@ -106,18 +115,12 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNew() {
+    public function addNew()
+    {
 
         $id = $this->input->post('id');
         $batch_id = $this->input->post('batch_id');
-        $course = $this->input->post('course');
-        $instructor = $this->input->post('instructor');
-        $course_fee = $this->input->post('course_fee');
-        $instructorname = $this->instructor_model->getInstructorById($instructor)->name;
-        $course_name = $this->course_model->getCourseById($course)->name;
-        if (empty($course_fee)) {
-            $course_fee = $this->course_model->getCourseById($course)->course_fee;
-        }
+
         $start_date = $this->input->post('start_date');
         if (!empty($start_date)) {
             $start_date = strtotime($start_date);
@@ -129,10 +132,6 @@ class Batch extends MX_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
-        // Validating Course Id Field
-        $this->form_validation->set_rules('course', 'Course', 'trim|required|min_length[1]|max_length[100]|xss_clean');
-        // Validating Email Field
-        $this->form_validation->set_rules('instructor', 'Instructor', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         // Validating Address Field   
         $this->form_validation->set_rules('start_date', 'Start Date', 'trim|required|min_length[5]|max_length[500]|xss_clean');
         // Validating Phone Field           
@@ -153,12 +152,8 @@ class Batch extends MX_Controller {
             $data = array();
             $data = array(
                 'batch_id' => $batch_id,
-                'course' => $course,
-                'instructor' => $instructor,
                 'start_date' => $start_date,
                 'end_date' => $end_date,
-                'course_fee' => $course_fee,
-                'coursename' => $course_name,
                 'instructorname' => $instructorname
             );
 
@@ -209,7 +204,8 @@ class Batch extends MX_Controller {
         }
     }
 
-    function batchByCourseId() {
+    function batchByCourseId()
+    {
         $course_id = $this->input->get('course_id');
         $data['batchs'] = $this->batch_model->getBatchByCourseId($course_id);
         $data['settings'] = $this->settings_model->getSettings();
@@ -218,10 +214,11 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function students() {
-
+    function students()
+    {
         $batch_id = $this->input->get('batch_id');
         $data['students'] = $this->batch_model->getStudentsByBatchId($batch_id);
+        $data['routine'] = $this->routine_model->getRoutineByBId($batch_id);
         $data['settings'] = $this->settings_model->getSettings();
         $data['batch_id'] = $batch_id;
         $this->load->view('home/dashboard', $data); // just the header file
@@ -229,15 +226,16 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function getBatch() {
+    function getBatch()
+    {
         $data['batchs'] = $this->batch_model->getBatch();
         $this->load->view('batch', $data);
     }
 
-    function getStudentByKey() {
+    function getStudentByKey()
+    {
         $key = $this->input->get('keyword');
         $students = $this->student_model->getStudentByKeyforBatch($key);
-
         $data[] = array();
         $options = array();
         foreach ($students as $student) {
@@ -248,7 +246,8 @@ class Batch extends MX_Controller {
         echo json_encode($data);
     }
 
-    function getStudentsByBatchIdByJason() {
+    function getStudentsByBatchIdByJason()
+    {
         $id = $this->input->get('id');
         $students = $this->batch_model->getStudentsByBatchId($id);
         foreach ($students as $key => $value) {
@@ -261,11 +260,10 @@ class Batch extends MX_Controller {
         echo json_encode($data);
     }
 
-    function addStudentToBatch() {
-
+    function addStudentToBatch()
+    {
         $batch_id = $this->input->post('batch_id');
         $student_id = $this->input->post('student');
-
         $student_exist = $this->batch_model->checkExistInBatch($batch_id, $student_id);
         if (!empty($student_exist)) {
             $this->session->set_flashdata('feedback', 'This Student Already Exist');
@@ -284,7 +282,6 @@ class Batch extends MX_Controller {
         if ($this->form_validation->run() == FALSE) {
             redirect("batch/students?batch_id=$batch_id");
         } else {
-
             $data = array();
             $data = array(
                 'batch' => $batch_id,
@@ -293,10 +290,7 @@ class Batch extends MX_Controller {
             $this->batch_model->insertStudentToBatch($data);
             // Loading View
             //sms
-
-
             $autosms = $this->sms_model->getAutoSmsByType('studentbatch');
-
             $studentdetails = $this->student_model->getStudentById($student_id);
             $batchdetails = $this->batch_model->getBatchById($batch_id);
             $message = $autosms->message;
@@ -330,14 +324,14 @@ class Batch extends MX_Controller {
                 $this->email->message($messageprint1);
                 $this->email->send();
             }
-
             //end
             $this->session->set_flashdata('feedback', 'Student Added To This Batch');
             redirect('batch/students?batch_id=' . $batch_id);
         }
     }
 
-    function editBatch() {
+    function editBatch()
+    {
         $data = array();
         $id = $this->input->get('id');
         $data['batch'] = $this->batch_model->getBatchById($id);
@@ -346,26 +340,30 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function editBatchByJason() {
+    function editBatchByJason()
+    {
         $id = $this->input->get('id');
         $data['batch'] = $this->batch_model->getBatchById($id);
         $data['courses'] = $this->course_model->getCourseById($data['batch']->course);
         echo json_encode($data);
     }
 
-    function getBatchByCourseIdByJason() {
+    function getBatchByCourseIdByJason()
+    {
         $id = $this->input->get('id');
         $data['batches'] = $this->batch_model->getBatchByCourseId($id);
         echo json_encode($data);
     }
 
-    function getCourseFeeByCourseIdByJason() {
+    function getCourseFeeByCourseIdByJason()
+    {
         $id = $this->input->get('id');
         $data['course_fee'] = $this->course_model->getCourseById($id)->course_fee;
         echo json_encode($data);
     }
 
-    function deleteStudentFromBatch() {
+    function deleteStudentFromBatch()
+    {
         $data = array();
         $student_id = $this->input->get('student_id');
         $batch_id = $this->input->get('batch_id');
@@ -374,7 +372,8 @@ class Batch extends MX_Controller {
         redirect('batch/students?batch_id=' . $batch_id);
     }
 
-    function delete() {
+    function delete()
+    {
         $data = array();
         $id = $this->input->get('id');
         $this->routine_model->deleteRoutineByBatchId($id);
@@ -383,7 +382,8 @@ class Batch extends MX_Controller {
         redirect('batch');
     }
 
-    function getBatchList() {
+    function getBatchList()
+    {
 
         $requestData = $_REQUEST;
         $start = $requestData['start'];
@@ -436,8 +436,6 @@ class Batch extends MX_Controller {
             $no_of_student = $this->batch_model->getStudentsNumberByBatchId($case->id);
             $info[] = array(
                 $case->batch_id,
-                $case->coursename,
-                $case->instructorname,
                 date($date_format, $case->start_date),
                 date($date_format, $case->end_date),
                 $no_of_student,
@@ -466,13 +464,12 @@ class Batch extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getOngoingBatchList() {
-
+    function getOngoingBatchList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
         $search = $this->input->post('search')['value'];
-
         if ($limit == -1) {
             if (!empty($search)) {
                 $data['cases'] = $this->batch_model->getBatchBySearch($search);
@@ -497,7 +494,7 @@ class Batch extends MX_Controller {
         $count = 0;
         $options2 = '';
         foreach ($data['cases'] as $case) {
-            if ($case->end_date >=  time() && $case->start_date <= time()) {
+            if ($case->end_date >= time() && $case->start_date <= time()) {
                 $i = $i + 1;
                 if ($this->ion_auth->in_group(array('admin'))) {
 
@@ -520,8 +517,6 @@ class Batch extends MX_Controller {
                 $no_of_student = $this->batch_model->getStudentsNumberByBatchId($case->id);
                 $info[] = array(
                     $case->batch_id,
-                    $case->coursename,
-                    $case->instructorname,
                     date($date_format, $case->start_date),
                     date($date_format, $case->end_date),
                     $no_of_student,
@@ -550,16 +545,14 @@ class Batch extends MX_Controller {
 
         echo json_encode($output);
     }
-    
-    
-    
-    function getUpcomingBatchList() {
 
+
+    function getUpcomingBatchList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
         $search = $this->input->post('search')['value'];
-
         if ($limit == -1) {
             if (!empty($search)) {
                 $data['cases'] = $this->batch_model->getBatchBySearch($search);
@@ -584,14 +577,12 @@ class Batch extends MX_Controller {
         $count = 0;
         $options2 = '';
         foreach ($data['cases'] as $case) {
-            if ($case->end_date >  time() && $case->start_date > time()) {
+            if ($case->end_date > time() && $case->start_date > time()) {
                 $i = $i + 1;
                 if ($this->ion_auth->in_group(array('admin'))) {
-
                     $options2 = '<a class="btn btn-info btn-xs btn_width delete_button" href="batch/delete?id=' . $case->id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i>' . lang('delete') . '</a>';
                     //$options2 = '<a class="btn btn-danger btn-xs btn_width" title="' . lang('delete') . '" href="sms/deleteTemplate?id=' . $case->id . '&redirect=sms/smsTemplate" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash-o"></i></a>';
                 }
-
                 $option1 = '<a class="btn btn-info btn-xs btn_width" href="batch/students?batch_id=' . $case->id . '"><i class="fa fa-eye"> </i>' . lang('students') . '</a>';
                 $option3 = '<button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="' . $case->id . '"><i class="fa fa-edit"></i>' . lang('edit') . '</button>';
                 $option4 = '<a class="btn btn-info btn-xs btn_width" href="batch/batchDocuments?batch_id=' . $case->id . '"><i class="fa fa-file"> </i>' . lang('documents') . '</a>';
@@ -607,8 +598,6 @@ class Batch extends MX_Controller {
                 $no_of_student = $this->batch_model->getStudentsNumberByBatchId($case->id);
                 $info[] = array(
                     $case->batch_id,
-                    $case->coursename,
-                    $case->instructorname,
                     date($date_format, $case->start_date),
                     date($date_format, $case->end_date),
                     $no_of_student,
@@ -634,19 +623,16 @@ class Batch extends MX_Controller {
                 "data" => []
             );
         }
-
         echo json_encode($output);
     }
-    
-    
-    
-    function getCompletedBatchList() {
 
+
+    function getCompletedBatchList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
         $search = $this->input->post('search')['value'];
-
         if ($limit == -1) {
             if (!empty($search)) {
                 $data['cases'] = $this->batch_model->getBatchBySearch($search);
@@ -671,14 +657,12 @@ class Batch extends MX_Controller {
         $count = 0;
         $options2 = '';
         foreach ($data['cases'] as $case) {
-            if ($case->end_date <  time() && $case->start_date < time()) {
+            if ($case->end_date < time() && $case->start_date < time()) {
                 $i = $i + 1;
                 if ($this->ion_auth->in_group(array('admin'))) {
-
                     $options2 = '<a class="btn btn-info btn-xs btn_width delete_button" href="batch/delete?id=' . $case->id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i>' . lang('delete') . '</a>';
                     //$options2 = '<a class="btn btn-danger btn-xs btn_width" title="' . lang('delete') . '" href="sms/deleteTemplate?id=' . $case->id . '&redirect=sms/smsTemplate" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash-o"></i></a>';
                 }
-
                 $option1 = '<a class="btn btn-info btn-xs btn_width" href="batch/students?batch_id=' . $case->id . '"><i class="fa fa-eye"> </i>' . lang('students') . '</a>';
                 $option3 = '<button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="' . $case->id . '"><i class="fa fa-edit"></i>' . lang('edit') . '</button>';
                 $option4 = '<a class="btn btn-info btn-xs btn_width" href="batch/batchDocuments?batch_id=' . $case->id . '"><i class="fa fa-file"> </i>' . lang('documents') . '</a>';
@@ -694,8 +678,6 @@ class Batch extends MX_Controller {
                 $no_of_student = $this->batch_model->getStudentsNumberByBatchId($case->id);
                 $info[] = array(
                     $case->batch_id,
-                    $case->coursename,
-                    $case->instructorname,
                     date($date_format, $case->start_date),
                     date($date_format, $case->end_date),
                     $no_of_student,
@@ -721,54 +703,49 @@ class Batch extends MX_Controller {
                 "data" => []
             );
         }
-
         echo json_encode($output);
     }
-    
-    
-    
 
-    public function getCourseList() {
+
+    public function getCourseList()
+    {
         // Search term
         $searchTerm = $this->input->post('searchTerm');
-
         // Get users
         $response = $this->batch_model->getcourses($searchTerm);
-
         echo json_encode($response);
     }
 
-    public function getCourseListedit() {
+    public function getCourseListedit()
+    {
         // Search term
         $searchTerm = $this->input->get('searchTerm');
         $id = $this->input->get('id');
         // Get users
         $response = $this->batch_model->getcoursesedit($searchTerm, $id);
-
         echo json_encode($response);
     }
 
-    public function getInstructorinfo() {
+    public function getInstructorinfo()
+    {
         // Search term
         $searchTerm = $this->input->post('searchTerm');
-
         // Get users
         $response = $this->batch_model->getinstructors($searchTerm);
-
         echo json_encode($response);
     }
 
-    public function getStudentinfo() {
+    public function getStudentinfo()
+    {
         // Search term
         $searchTerm = $this->input->post('searchTerm');
-
         // Get users
         $response = $this->batch_model->getstudents($searchTerm);
-
         echo json_encode($response);
     }
 
-    public function batchMaterial() {
+    public function batchMaterial()
+    {
         $data = array();
         //$id = $this->input->get('course');
         $data['settings'] = $this->settings_model->getSettings();
@@ -777,13 +754,12 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function getBatchMaterialList() {
-
+    function getBatchMaterialList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
         $search = $this->input->post('search')['value'];
-
         if ($limit == -1) {
             if (!empty($search)) {
                 $data['cases'] = $this->batch_model->getBatchMaterialBySearch($search);
@@ -812,7 +788,6 @@ class Batch extends MX_Controller {
             $batchid = $this->batch_model->getBatchById($case->batch_id)->batch_id;
             $info[] = array(
                 $i,
-                $case->coursename,
                 $batchid,
                 $case->title,
                 ' ' . $optiondown . ' ' . $options2
@@ -839,7 +814,8 @@ class Batch extends MX_Controller {
         echo json_encode($output);
     }
 
-    function deleteBatchMaterial() {
+    function deleteBatchMaterial()
+    {
         $id = $this->input->get('id');
 
         $this->batch_model->deleteBatchMaterial($id);
@@ -848,7 +824,8 @@ class Batch extends MX_Controller {
         redirect("batch/batchMaterial");
     }
 
-    function deleteBatchMaterialDetails() {
+    function deleteBatchMaterialDetails()
+    {
         $id = $this->input->get('id');
         $batchmaterial1 = $this->batch_model->getBatchMaterialById($id)->batch_id;
         $this->batch_model->deleteBatchMaterial($id);
@@ -856,8 +833,8 @@ class Batch extends MX_Controller {
         redirect("course/courseMaterial?course=" . $batchmaterial1);
     }
 
-    function batchDocuments() {
-
+    function batchDocuments()
+    {
         $batch_id = $this->input->get('batch_id');
         // echo $batch_id;
         $data['batches'] = $this->batch_model->getBatchById($batch_id);
@@ -869,7 +846,8 @@ class Batch extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function addBatchMaterial() {
+    function addBatchMaterial()
+    {
         $title = $this->input->post('title');
         $course_id = $this->input->post('course');
         $batch_id = $this->input->post('batch');
@@ -956,10 +934,6 @@ class Batch extends MX_Controller {
                 $this->session->set_flashdata('feedback', 'Upload Error !');
                 redirect("batch/batchDocuments?batch_id=" . $batch_id);
             }
-
-
-
-
             redirect("batch/batchDocuments?batch_id=" . $batch_id);
         }
     }

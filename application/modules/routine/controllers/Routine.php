@@ -3,9 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Routine extends MX_Controller {
+class Routine extends MX_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->model('routine_model');
         $this->load->model('course/course_model');
@@ -19,7 +21,8 @@ class Routine extends MX_Controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $data['courses'] = $this->course_model->getCourse();
         $data['routines'] = $this->routine_model->getRoutine();
         $data['settings'] = $this->settings_model->getSettings();
@@ -28,7 +31,10 @@ class Routine extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function viewR() {
+
+
+    public function viewR()
+    {
         $data['courses'] = $this->course_model->getCourse();
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
@@ -36,7 +42,8 @@ class Routine extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function routineByPageNumber() {
+    public function routineByPageNumber()
+    {
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
             $page_number = 0;
@@ -50,7 +57,8 @@ class Routine extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function searchRoutine() {
+    function searchRoutine()
+    {
         $page_number = $this->input->get('page_number');
         if (empty($page_number)) {
             $page_number = 0;
@@ -66,14 +74,14 @@ class Routine extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function viewRoutine() {
+    public function viewRoutine()
+    {
         $data['course'] = $this->input->post('course');
-        $data['id'] = (int) $this->input->post('id');
+        $data['id'] = (int)$this->input->post('id');
         if (empty($data['id'])) {
-            $data['id'] = (int) $this->input->get('id');
+            $data['id'] = (int)$this->input->get('id');
             $data['course'] = $this->batch_model->getCourseByBatchId($data['id'])->course;
         }
-
         $routine_details = $this->routine_model->getRoutineByBatchId($data['id']);
         $data['routine'] = $routine_details;
         if (!empty($routine_details)) {
@@ -86,25 +94,30 @@ class Routine extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNewView() {
+    public function addNewView()
+    {
         $data['courses'] = $this->course_model->getdistinctCourse();
         $data['topic'] = $this->course_model->getCourse();
+        $data['batchs'] = $this->batch_model->getBatch();
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard', $data); // just the header file
         $this->load->view('add_new');
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNew() {
+    public function addNew()
+    {
 
         $id = $this->input->post('id');
         if (!empty($id)) {
             $routine_details = $this->routine_model->getRoutineById($id);
             $course = $routine_details->course;
             $chapter = $routine_details->chapter;
+            $batch_id = $routine_details->batch_id;
         } else {
             $course = $this->input->post('course');
             $chapter = $this->input->post('chapter');
+            $batch_id = $this->input->post('batch_id');
             if (!empty($routine_details)) {
                 $this->session->set_flashdata('feedback', 'Already Exist For This Batch');
                 redirect('routine/addNewView');
@@ -146,7 +159,6 @@ class Routine extends MX_Controller {
         $end_time_saturday = $this->input->post('end_time_saturday');
 
 
-
         $routine = array();
 
         if (!empty($sunday)) {
@@ -178,7 +190,6 @@ class Routine extends MX_Controller {
         }
 
 
-
         $routines = implode('*', $routine);
 
         $this->load->library('form_validation');
@@ -208,8 +219,8 @@ class Routine extends MX_Controller {
                 'chapter' => $chapter,
                 'routine' => $routines,
                 'course' => $course,
+                'batch_id' => $batch_id,
             );
-
 
 
             if (empty($id)) {     // Adding New Routine
@@ -224,12 +235,14 @@ class Routine extends MX_Controller {
         }
     }
 
-    function getRoutine() {
+    function getRoutine()
+    {
         $data['routines'] = $this->routine_model->getRoutine();
         $this->load->view('routine', $data);
     }
 
-    function editRoutine() {
+    function editRoutine()
+    {
         $data = array();
         $id = $this->input->get('id');
         $data['courses'] = $this->course_model->getCourse();
@@ -240,13 +253,15 @@ class Routine extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function editRoutineByJason() {
+    function editRoutineByJason()
+    {
         $id = $this->input->get('id');
         $data['routine'] = $this->routine_model->getRoutineById($id);
         echo json_encode($data);
     }
 
-    function delete() {
+    function delete()
+    {
         $data = array();
         $id = $this->input->get('id');
         $this->routine_model->delete($id);
@@ -254,7 +269,8 @@ class Routine extends MX_Controller {
         redirect('routine');
     }
 
-    function deleteRoutineByBatchId() {
+    function deleteRoutineByBatchId()
+    {
         $data = array();
         $id = $this->input->get('id');
         $this->routine_model->deleteRoutineByBatchId($id);
@@ -262,7 +278,8 @@ class Routine extends MX_Controller {
         redirect('routine');
     }
 
-    function getRoutineList() {
+    function getRoutineList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -296,7 +313,7 @@ class Routine extends MX_Controller {
                 $option3 = '<a class="btn btn-info btn-xs btn_width delete_button" href="routine/delete?id=' . $case->id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i>' . lang('delete') . '</a>';
             }
 
-            
+
             $info[] = array(
                 $i,
                 $case->course,

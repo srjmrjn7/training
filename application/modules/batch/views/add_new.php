@@ -31,53 +31,7 @@
                                 }
                                 ?>' placeholder="">
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label><br>
-                                <select class="form-control" id='selUser1' name="course" style="width: 100% !important;">
-                                 <!--   <option value='0'><?php //echo lang('select_course');          ?></option>-->
-                                </select>
 
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label><br>
-                                <select class="form-control" id='selUser2' name="instructor" style="width: 100% !important;">
-                                <!--   <option value='0'><?php //echo lang('select_course');          ?></option>-->
-                                </select>
-
-                            </div>
-                            <!--        <div class="form-group">
-                                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label>
-                                        <select class="form-control" name="course" value=''> 
-                            <?php foreach ($courses as $course) { ?>
-                                                                    <option value="<?php echo $course->id; ?>" <?php
-                                if (!empty($batch->course)) {
-                                    if ($batch->course == $course->id) {
-                                        echo 'selected';
-                                    }
-                                }
-                                ?> ><?php echo $course->name; ?> </option>
-                            <?php } ?>
-                                        </select>
-                                    </div>
-
-
-
-
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label>
-                                        <select class="form-control" name="instructor" value=''> 
-                            <?php foreach ($instructors as $instructor) { ?>
-                                                                    <option value="<?php echo $instructor->id; ?>" <?php
-                                if (!empty($batch->instructor)) {
-                                    if ($batch->instructor == $course->id) {
-                                        echo 'selected';
-                                    }
-                                }
-                                ?> ><?php echo $instructor->name; ?> </option>
-                            <?php } ?>
-                                        </select>
-                                    </div>-->
                             <div class="form-group">
                                 <label for="exampleInputEmail1"> <?php echo lang('start_date'); ?></label>
                                 <input type="text" class="form-control default-date-picker" name="start_date" id="exampleInputEmail1" placeholder="">

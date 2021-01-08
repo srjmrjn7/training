@@ -8,17 +8,17 @@
                 <?php echo Exam; ?>
                 <div class="clearfix search_row col-md-4 pull-right">
                     <a data-toggle="modal" href="#myModal">
-                        <div class="btn-group pull-right"> 
+                        <div class="btn-group pull-right">
                             <button class="btn-xs green">
-                                <i class="fa fa-plus-circle"></i>  <?php echo "Add New Question"; ?>
+                                <i class="fa fa-plus-circle"></i> <?php echo "Add New Question"; ?>
                             </button>
                         </div>
-                    </a>  
+                    </a>
                 </div>
             </header>
             <style>
 
-                .editable-table .search_form{
+                .editable-table .search_form {
                     border: 0px solid #ccc !important;
                     padding: 0px !important;
                     background: none !important;
@@ -27,14 +27,14 @@
                 }
 
 
-                .editable-table .search_form input{
+                .editable-table .search_form input {
                     padding: 6px !important;
                     width: 250px !important;
                     background: #fff !important;
                     border-radius: none !important;
                 }
 
-                .editable-table .search_row{
+                .editable-table .search_row {
                     margin-bottom: 20px !important;
                 }
 
@@ -50,31 +50,31 @@
 
                     <table class="table table-striped table-hover table-bordered" id="editable-sample1">
                         <thead>
-                            <tr>
-                                <th> <?php echo 'ID'; ?></th>
-                                <th> <?php echo 'Exam ID'; ?></th>
-                                <th> <?php echo 'Question'; ?></th>
-                                <th> <?php echo 'Option 1'; ?></th>
-                                <th> <?php echo 'Option 2'; ?></th>
-                                <th> <?php echo 'Option 3'; ?></th>
-                                <th> <?php echo 'Option 4'; ?></th>
-                                <th> <?php echo 'Answer'; ?></th>
-                                <th> <?php echo 'Action'; ?></th>
-                            </tr>
+                        <tr>
+                            <th> <?php echo 'ID'; ?></th>
+                            <th> <?php echo 'Exam ID'; ?></th>
+                            <th> <?php echo 'Question'; ?></th>
+                            <th> <?php echo 'Option 1'; ?></th>
+                            <th> <?php echo 'Option 2'; ?></th>
+                            <th> <?php echo 'Option 3'; ?></th>
+                            <th> <?php echo 'Option 4'; ?></th>
+                            <th> <?php echo 'Answer'; ?></th>
+                            <th> <?php echo 'Action'; ?></th>
+                        </tr>
                         </thead>
                         <tbody>
                         <style>
 
-                            .img_url{
-                                height:20px;
-                                width:20px;
-                                background-size: contain; 
-                                max-height:20px;
+                            .img_url {
+                                height: 20px;
+                                width: 20px;
+                                background-size: contain;
+                                max-height: 20px;
                                 border-radius: 100px;
                             }
 
                         </style>
-                       
+
                         </tbody>
                     </table>
                 </div>
@@ -87,9 +87,9 @@
 <!--footer start-->
 
 
-
 <!-- Add Exam Modal-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,40 +100,55 @@
                 <form role="form" action="exam/addNew" method="post">
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo 'Exam ID'; ?></label>
-                        <input type="text" class="form-control" name="exam_id" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="exam_id" id="exampleInputEmail1" value=''
+                               placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo 'Question'; ?></label>
                         <input type="text" class="form-control" name="question" id="exampleInputEmail1" placeholder="">
                     </div>
 
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer" id="exampleRadios1" value="1"
+                               checked>
 
-                    <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo 'Option 1'; ?></label>
-                        <input type="text" class="form-control" name="option1" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="option1" id="exampleInputEmail1" value=''
+                               placeholder="">
+
                     </div>
-                    <div class="form-group">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer" id="exampleRadios1" value="2">
+
                         <label for="exampleInputEmail1"> <?php echo 'Option 2'; ?></label>
-                        <input type="text" class="form-control" name="option2" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="option2" id="exampleInputEmail1" value=''
+                               placeholder="">
+
                     </div>
-					<div class="form-group">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer" id="exampleRadios1" value="3">
+
                         <label for="exampleInputEmail1"> <?php echo 'Option 3'; ?></label>
-                        <input type="text" class="form-control" name="option3" id="exampleInputEmail1" value='' placeholder="">
+                        <input type="text" class="form-control" name="option3" id="exampleInputEmail1" value=''
+                               placeholder="">
+
                     </div>
-					<div class="form-group">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer" id="exampleRadios1" value="4">
+
                         <label for="exampleInputEmail1"> <?php echo 'Option 4'; ?></label>
-                        <input type="text" class="form-control" name="option4" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo 'Correct Answer'; ?></label>
-                        <input type="text" class="form-control" name="answer" id="exampleInputEmail1" value='' placeholder="">
-                    </div>
+                        <input type="text" class="form-control" name="option4" id="exampleInputEmail1" value=''
+                               placeholder="">
 
-
+                    </div>
 
 
                     <div class="form-group col-md-12">
-                        <button type="submit" name="submit" class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
+                        <button type="submit" name="submit"
+                                class="btn btn-info row pull-right"> <?php echo lang('submit'); ?></button>
                     </div>
 
                 </form>
@@ -145,9 +160,10 @@
 <!-- Add Exam Modal-->
 
 <script>
-    
+
 
     $(document).ready(function () {
+        var id = window.location.search.substring(1);
         var table = $('#editable-sample1').DataTable({
             responsive: true,
             //   dom: 'lfrBtip',
@@ -156,15 +172,15 @@
             "serverSide": true,
             "searchable": true,
             "ajax": {
-                url: "exam/getQuestionById",
-                type: 'GET',
+                url: "exam/getQuestionByid?"+id,
+                type: 'POST',
             },
             scroller: {
                 loadingIndicator: true
             },
             dom: "<'row'<'col-sm-3'l><'col-sm-5 text-center'B><'col-sm-4'f>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             buttons: [
                 'copyHtml5',
                 'excelHtml5',
@@ -173,7 +189,7 @@
                 {
                     extend: 'print',
                     exportOptions: {
-                       columns: [1, 2,3,4],
+                        columns: [1, 2, 3, 4],
                     }
                 },
             ],
@@ -191,7 +207,7 @@
             },
         });
         table.buttons().container()
-                .appendTo('.custom_buttons');
+            .appendTo('.custom_buttons');
     });
 </script>
 <script>

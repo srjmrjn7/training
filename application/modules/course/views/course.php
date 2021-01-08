@@ -54,7 +54,6 @@
                                 <th> <?php echo "Chapter"; ?></th>
                                 <th> <?php echo "Lecturer"; ?></th>
                                 <th> <?php echo lang('course_fee'); ?></th>
-                                <th> <?php echo lang('batch'); ?> <?php echo lang('number'); ?></th>
                                 <th class="no-print"> <?php echo lang('options'); ?></th>
                             </tr>
                         </thead>
@@ -109,6 +108,7 @@
                         <label for="exampleInputEmail1"> <?php echo "Chapter"; ?></label>
                         <input type="text" class="form-control" name="topic" id="exampleInputEmail1" value='' placeholder="">
                     </div>
+
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label><br>
                         <select class="form-control" id='selUser2' name="instructor" style="width: 100% !important;">
@@ -154,22 +154,23 @@
                 <form role="form" id="editCourseForm" action="course/addNew" class="clearfix" method="post" enctype="multipart/form-data">
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?> <?php echo lang('id'); ?></label>
-                        <input type="text" class="form-control" name="course_id" id="exampleInputEmail1" value='' placeholder="">
+                        <label for="exampleInputEmail1"> <?php echo "Subject ID"; ?></label>
+                        <input type="text" class="form-control" name="subject_id" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?>  <?php echo lang('name'); ?></label>
+                        <label for="exampleInputEmail1"> <?php echo "Subject"; ?>  <?php echo lang('name'); ?></label>
                         <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('course'); ?> <?php echo lang('topic'); ?></label>
+                        <label for="exampleInputEmail1"> <?php echo "Chapter"; ?></label>
                         <input type="text" class="form-control" name="topic" id="exampleInputEmail1" value='' placeholder="">
                     </div>
+
                     <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('duration'); ?></label>
-                        <input type="text" class="form-control" name="duration" id="exampleInputEmail1" placeholder="">
+                        <label for="exampleInputEmail1"> <?php echo lang('instructor'); ?></label><br>
+                        <input type="text" class="form-control" name="lecturer" id="exampleInputEmail1" value='' placeholder="">
                     </div>
 
                     <div class="form-group">
@@ -209,11 +210,11 @@
             }).success(function (response) {
                 // Populate the form fields with the data returned from server
                 $('#editCourseForm').find('[name="id"]').val(response.course.id).end()
-                $('#editCourseForm').find('[name="course_id"]').val(response.course.course_id).end()
+                $('#editCourseForm').find('[name="subject_id"]').val(response.course.subject_id).end()
                 $('#editCourseForm').find('[name="name"]').val(response.course.name).end()
                 $('#editCourseForm').find('[name="topic"]').val(response.course.topic).end()
-                $('#editCourseForm').find('[name="duration"]').val(response.course.duration).end()
-                $('#editCourseForm').find('[name="course_fee"]').val(response.course.course_fee).end()
+                $('#editCourseForm').find('[name="lecturer"]').val(response.course.lecturer).end()
+                $('#editCourseForm').find('[name="subject_fee"]').val(response.course.subject_fee).end()
             });
         });
     });

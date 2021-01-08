@@ -19,7 +19,6 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th><?php echo lang('course'); ?></th>
                                  <th><?php echo lang('batch'); ?></th>
                                 <th><?php echo lang('title'); ?></th>  
                                 <th><?php echo lang('options'); ?></th>

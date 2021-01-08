@@ -86,7 +86,7 @@
                                     <?php foreach ($courses as $course) { ?>
                                         <option value="<?php echo $course->name; ?>" data-id="<?php echo $course->name; ?>" <?php
                                         if (!empty($routine->routine)) {
-                                            if ($course->id == $routine->course) {
+                                            if ($course->id == $routine->id) {
                                                 echo 'selected';
                                             }
                                         }
@@ -111,20 +111,36 @@
                                     <?php } ?>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1"> <?php echo lang('select'); ?> <?php echo "Batch"; ?></label>
+                                <select class="form-control" name="batch_id" id="abatch">
+                                    <?php foreach ($batchs as $batch) { ?>
+                                        <option value="<?php echo $batch->id;; ?>" data-id="<?php echo $batch->batch_id; ?>" <?php
+                                        if (!empty($routine->routine)) {
+                                            if ($batch->id == $routine->id) {
+                                                echo 'selected';
+                                            }
+                                        }
+                                        ?> ><?php echo $batch->batch_id; ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
 
                     <?php } else { ?>
                         <?php $batch_details = $this->batch_model->getBatchById($routine->batch_id); ?>
                         <div class="routine_top">
                             <div class="form-group">
-                                <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label>
+                                <label for="exampleInputEmail1"> <?php echo "Subject"; ?></label>
                                 <?php
                                 $course_details = $this->course_model->getCourseById($batch_details->course);
-                                echo $course_details->name;
+                                echo $course_details->subject;
                                 ?> 
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1"> <?php echo lang('course'); ?></label>
+                                <label for="exampleInputEmail1"> <?php echo "Chapter"; ?></label>
                                 <?php
                                 $course_details = $this->course_model->getCourseById($batch_details->course);
                                 echo $course_details->topic;
@@ -446,43 +462,6 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="common/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#acourse').on('change', function () {
-            // Get the record's ID via attribute                 
-            var iid = $(this).find(':selected').data('id');
-            $('#abatch').find('option').remove();
-            $.ajax({
-                url: 'batch/getBatchByCourseIdByJason?id=' + iid,
-                method: 'GET',
-                data: '',
-                dataType: 'json',
-            }).success(function (response) {
-                var batchs = response.batches;
-                $.each(batchs, function (key, value) {
-                    $('#abatch').append($('<option>').text(value.batch_id).val(value.id)).end();
-                });
-            });
-        });
-    });
-
-    $(document).ready(function () {
-        // Get the record's ID via attribute                 
-        var iid = $(this).find(':selected').data('id');
-        $('#abatch').find('option').remove();
-        $.ajax({
-            url: 'batch/getBatchByCourseIdByJason?id=' + iid,
-            method: 'GET',
-            data: '',
-            dataType: 'json',
-        }).success(function (response) {
-            var batchs = response.batches;
-            $.each(batchs, function (key, value) {
-                $('#abatch').append($('<option>').text(value.batch_id).val(value.id)).end();
-            });
-        });
-    });
-</script>
 <script>
     $(document).ready(function () {
         $('.timepicker-default').timepicker({

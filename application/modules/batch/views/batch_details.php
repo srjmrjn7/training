@@ -36,20 +36,11 @@
                     <div class="panel-body">
                         <h1><strong><?php echo lang('batch_details'); ?> </strong></h1>
                         <div class="desk yellow">
-                            <h3><?php echo lang('course_name'); ?> </h3>  <?php
-                            $course_id = $this->batch_model->getbatchById($batch_id)->course;
-                            $couse_details = $this->course_model->getcourseById($course_id);
-                            echo $couse_details->name;
-                            ?>
                             <h3><?php echo lang('batch_id'); ?> </h3> <?php echo $this->batch_model->getbatchById($batch_id)->batch_id; ?>
-                            <h3><?php echo lang('instructor'); ?> </h3> <?php echo $this->instructor_model->getInstructorById($batch_details->instructor)->name; ?>
                             <h3>
                                 <?php echo lang('start_date'); ?> </h3> <?php echo date($date_format, $batch_details->start_date); ?>
                             <h3><?php echo lang('end_date'); ?> </h3>
                             <?php echo date($date_format, $batch_details->end_date); ?>
-                            <h3><?php echo lang('course_fee'); ?> </h3> <?php echo $settings->currency; ?> <?php
-                            echo $batch_details->course_fee;
-                            ?>
                         </div>
                     </div>
                 </div>
@@ -71,7 +62,7 @@
                             </a>
                         </div> 
                         <div class="col-md-2 no-print pull-right"> 
-                            <a href="routine/viewRoutine?batch=<?php echo $batch_details->id; ?>">
+                            <a href="routine">
                                 <div class="btn-group pull-right">
                                     <button id="add_new" class="btn-xs green">
                                         <i class="fa fa-calendar-alt"></i> <?php echo lang('routine'); ?>
@@ -121,6 +112,50 @@
                                     <td><?php echo $student->phone; ?></td>
                                     <td class="no-print">
                                         <a class="btn btn-info btn-xs btn_width delete_button" href="batch/deleteStudentFromBatch?student_id=<?php echo $student->id; ?>&batch_id=<?php echo $batch_id; ?>" onclick="return confirm('Are you sure you want to remove this student from the batch?');"><i class="fa fa-trash"> </i> <?php echo lang('remove'); ?></a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                    <header class="panel-heading">
+                        <div class=""> <?php echo "Routines"; ?> </div>
+                    </header>
+                    <table class="table table-striped table-hover table-bordered" id="">
+                        <thead>
+                            <tr>
+                                <th> <?php echo "ID"; ?></th>
+                                <th> <?php echo "Subject"; ?> <?php echo lang('id'); ?></th>
+                                <th> <?php echo "Chapter"; ?></th>
+                                <th> <?php echo lang('options'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <style>
+
+                            .img_url{
+                                height:20px;
+                                width:20px;
+                                background-size: contain;
+                                max-height:20px;
+                                border-radius: 100px;
+                            }
+
+                        </style>
+                        <?php
+                        foreach ($routines as $key => $value) {
+
+                            $routine = $this->routine_model->getRoutineByBId($value);
+                            if (!empty($routine)) {
+                                ?>
+                                <tr class="">
+                                    <td> <?php echo $routine->id; ?></td>
+                                    <td><?php echo $routine->course; ?></td>
+                                    <td class="center"><?php echo $routine->chapter; ?></td>
+                                    <td class="no-print">
+                                        <a class="btn btn-info btn-xs btn_width delete_button" href="" onclick="return confirm('Are you sure you want to remove this student from the batch?');"><i class="fa fa-trash"> </i> <?php echo lang('remove'); ?></a>
                                     </td>
                                 </tr>
                                 <?php
